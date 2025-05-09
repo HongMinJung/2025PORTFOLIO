@@ -1,16 +1,21 @@
 @import "tailwindcss";
+@import "tailwindcss/preflight";
 @import 'pretendard/dist/web/static/pretendard.css';
 
 :root {
+  --scrollbar-track: #f1f1f1;
+  --scrollbar-thumb: #888;
+  --scrollbar-thumb-hover: #555;
   --background: #ffffff;
   --foreground: #171717;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.dark {
+  --scrollbar-track: #111;
+  --scrollbar-thumb: #444;
+  --scrollbar-thumb-hover: #666;
+  --background: #0a0a0a;
+  --foreground: #ededed;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -20,8 +25,183 @@
   }
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: 'Pretendard', sans-serif;
+  font-family: Pretendard, Arial, Helvetica, sans-serif;
+  transition: duration-300;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading, Pretendard);
+}
+
+h1 {
+  font-size: var(--text-heading-1);
+}
+
+h2 {
+  font-size: var(--text-heading-2);
+}
+
+h3 {
+  font-size: var(--text-heading-3);
+}
+
+h4 {
+  font-size: var(--text-heading-4);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+}
+
+/* Components */
+.container-custom {
+  margin-inline: auto;
+  padding-inline: 1rem;
+  max-width: 80rem;
+}
+
+@media (min-width: 640px) {
+  .container-custom {
+    padding-inline: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-custom {
+    padding-inline: 2rem;
+  }
+}
+
+.section {
+  padding-block: 4rem;
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding-block: 6rem;
+  }
+}
+
+.section-title {
+  font-size: var(--text-heading-2);
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  color: var(--primary-700, #2563eb);
+}
+
+.dark .section-title {
+  color: var(--primary-400, #60a5fa);
+}
+
+.section-subtitle {
+  font-size: 1.25rem;
+  margin-bottom: 2.5rem;
+  color: var(--gray-600, #4b5563);
+}
+
+@media (min-width: 768px) {
+  .section-subtitle {
+    font-size: 1.5rem;
+  }
+}
+
+.dark .section-subtitle {
+  color: var(--gray-300, #d1d5db);
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 0.75rem;
+  box-shadow: var(--shadow-elevation-3, 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05));
+  overflow: hidden;
+  transition: all 300ms;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-elevation-4, 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04));
+}
+
+.dark .card {
+  background: var(--dark-700, #1f2937);
+}
+
+.skill-badge {
+  padding-inline: 0.75rem;
+  padding-block: 0.25rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  background-color: var(--primary-100, #dbeafe);
+  color: var(--primary-800, #1e40af);
+}
+
+.dark .skill-badge {
+  background-color: var(--primary-900, #1e3a8a);
+  color: var(--primary-200, #bfdbfe);
+}
+
+/* Animations */
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 0.5s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Animation Delays */
+.delay-100 {
+  animation-delay: 100ms;
+}
+
+.delay-200 {
+  animation-delay: 200ms;
+}
+
+.delay-300 {
+  animation-delay: 300ms;
+}
+
+.delay-400 {
+  animation-delay: 400ms;
+}
+
+.delay-500 {
+  animation-delay: 500ms;
 }
