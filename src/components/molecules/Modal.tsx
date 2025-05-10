@@ -106,19 +106,18 @@ export const Modal = ({
           <div className="p-4 border-b border-gray-200 dark:border-dark-700 flex items-center justify-between">
             <div>
               {title && (
-                <div id="modal-title">
-                  <Typography variant="h4">{title}</Typography>
-                </div>
+                <Typography id="modal-title" variant="h4">
+                  {title}
+                </Typography>
               )}
               {description && (
-                <div id="modal-description">
-                  <Typography
-                    variant="body2"
-                    className="mt-1 text-gray-600 dark:text-gray-400"
-                  >
-                    {description}
-                  </Typography>
-                </div>
+                <Typography
+                  id="modal-description"
+                  variant="body2"
+                  className="mt-1 text-gray-600 dark:text-gray-400"
+                >
+                  {description}
+                </Typography>
               )}
             </div>
 
