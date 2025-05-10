@@ -1,93 +1,50 @@
-import React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 
-const typographyVariants = cva("", {
+const badgeVariants = cva("inline-flex items-center rounded-full font-medium", {
   variants: {
     variant: {
-      h1: "text-heading-1 font-heading font-bold",
-      h2: "text-heading-2 font-heading font-semibold",
-      h3: "text-heading-3 font-heading font-semibold",
-      h4: "text-heading-4 font-heading font-semibold",
-      "body-xl": "text-body-xl",
-      "body-lg": "text-body-lg",
-      "body-base": "text-body-base",
-      "body-sm": "text-body-sm",
-      caption: "text-xs",
+      default: "bg-gray-100 text-gray-800 dark:bg-dark-700 dark:text-gray-300",
+      primary:
+        "bg-primary-100 text-primary-800 dark:bg-primary-900 dark:text-primary-300",
+      secondary:
+        "bg-secondary-100 text-secondary-800 dark:bg-secondary-900 dark:text-secondary-300",
+      success:
+        "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300",
+      error: "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300",
+      warning:
+        "bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-300",
+      info: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300",
     },
-    color: {
-      default: "text-gray-900 dark:text-white",
-      muted: "text-gray-600 dark:text-gray-300",
-      primary: "text-primary-600 dark:text-primary-400",
-      secondary: "text-secondary-600 dark:text-secondary-400",
-      success: "text-green-600 dark:text-green-400",
-      error: "text-red-600 dark:text-red-400",
-      warning: "text-amber-600 dark:text-amber-400",
-    },
-    align: {
-      left: "text-left",
-      center: "text-center",
-      right: "text-right",
-    },
-    weight: {
-      normal: "font-normal",
-      medium: "font-medium",
-      semibold: "font-semibold",
-      bold: "font-bold",
+    size: {
+      sm: "px-2 py-0.5 text-xs",
+      md: "px-2.5 py-0.5 text-sm",
+      lg: "px-3 py-1 text-sm",
     },
   },
   defaultVariants: {
-    variant: "body-base",
-    color: "default",
-    align: "left",
+    variant: "default",
+    size: "md",
   },
 });
 
-export type TypographyVariants = VariantProps<typeof typographyVariants>;
-
-export interface TypographyProps<C extends React.ElementType> {
-  component?: C;
-  variant?: TypographyVariants["variant"];
-  color?: TypographyVariants["color"];
-  align?: TypographyVariants["align"];
-  weight?: TypographyVariants["weight"];
-  className?: string;
-  children?: React.ReactNode;
+export interface BadgeProps
+  extends React.HTMLAttributes<HTMLSpanElement>,
+    VariantProps<typeof badgeVariants> {
+  icon?: React.ReactNode;
 }
 
-type PolymorphicComponentProps<C extends React.ElementType> =
-  TypographyProps<C> &
-    Omit<React.ComponentPropsWithoutRef<C>, keyof TypographyProps<C>>;
-
-export const Typography = <C extends React.ElementType = "p">({
-  component,
-  variant,
-  color,
-  align,
-  weight,
+export const Badge = ({
   className,
+  variant,
+  size,
+  icon,
   children,
-  ...rest
-}: PolymorphicComponentProps<C>) => {
-  // variant가 h1-h6 중 하나이고 component가 지정되지 않았으면 해당 heading 요소 사용
-  const Component =
-    component ||
-    (variant && typeof variant === "string" && variant.startsWith("h")
-      ? (variant as unknown as C)
-      : ("p" as unknown as C));
-
-  const classNames = typographyVariants({
-    variant,
-    color,
-    align,
-    weight,
-    className,
-  });
-
+  ...props
+}: BadgeProps) => {
   return (
-    <Component className={classNames} {...rest}>
+    <span className={badgeVariants({ variant, size, className })} {...props}>
+      {icon && <span className="mr-1">{icon}</span>}
       {children}
-    </Component>
+    </span>
   );
 };
-
-export default Typography;
