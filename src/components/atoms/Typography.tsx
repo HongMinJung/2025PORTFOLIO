@@ -43,10 +43,13 @@ const tagMapping: Record<string, React.ElementType> = {
 };
 
 export interface TypographyProps
-  extends VariantProps<typeof typographyVariants> {
+  extends React.HTMLAttributes<HTMLElement>,
+    VariantProps<typeof typographyVariants> {
+  component?: React.ElementType;
   children: React.ReactNode;
   as?: React.ElementType;
   className?: string;
+  id?: string;
 }
 
 export const Typography: React.FC<TypographyProps> = ({
@@ -56,6 +59,7 @@ export const Typography: React.FC<TypographyProps> = ({
   className,
   children,
   as,
+  id,
   ...props
 }) => {
   const Component = as || tagMapping[variant as string] || "span";
@@ -63,6 +67,7 @@ export const Typography: React.FC<TypographyProps> = ({
   return (
     <Component
       className={typographyVariants({ variant, weight, align, className })}
+      id={id}
       {...props}
     >
       {children}
