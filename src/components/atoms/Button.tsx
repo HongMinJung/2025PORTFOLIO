@@ -62,6 +62,7 @@ const Button = React.forwardRef<
   ) => {
     if (href) {
       return (
+        // 링크 버튼
         <Link
           href={href}
           className={buttonVariants({ variant, size, fullWidth, className })}
@@ -75,9 +76,10 @@ const Button = React.forwardRef<
     }
 
     return (
+      // 일반 버튼
       <button
         className={buttonVariants({ variant, size, fullWidth, className })}
-        ref={ref as React.Ref<HTMLButtonElement>} // 명시적 타입 단언
+        ref={ref as React.Ref<HTMLButtonElement>}
         {...props}
       >
         {startIcon && <span className="mr-2">{startIcon}</span>}
