@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://2025minjung.vercel.app"),
   title: "홍민정 | 2025PORTFOLIO",
   description:
     "디자인 감각을 코드로, 앞으로의 성장이 기대되는 신입 개발자의 포트폴리오 사이트입니다.",
