@@ -1,14 +1,13 @@
-import type { Preview } from '@storybook/react'
+// .storybook/preview.js
+import '../styles/globals.css';    // TailwindCSS 전역 스타일
+import '../styles/fonts.css';      // Pretendard 등 폰트 설정
 
-const preview: Preview = {
-  parameters: {
-    controls: {
-      matchers: {
-       color: /(background|color)$/i,
-       date: /Date$/i,
-      },
-    },
-  },
+export const parameters = {
+  actions: { argTypesRegex: '^on[A-Z].*' },
+  controls: {
+    matchers: {
+      color: /(background|color)$/i,
+      date: /Date$/
+    }
+  }
 };
-
-export default preview;
