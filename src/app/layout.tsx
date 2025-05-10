@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     title: "홍민정 | 2025PORTFOLIO",
     description:
       "디자인 감각을 코드로, 앞으로의 성장이 기대되는 신입 개발자의 포트폴리오 사이트입니다.",
-    url: "https://2025-portfolio-self.vercel.app/",
+    url: "https://2025minjung.vercel.app/",
     siteName: "홍민정 | 2025PORTFOLIO",
     //썸네일
     images: [
