@@ -14,7 +14,6 @@ export default create({
   
   // Typography
   fontBase: '"Pretendard", sans-serif',
-  fontCode: '"Roboto Mono", monospace',
   
   // Text colors
   textColor: '#1A202C',
