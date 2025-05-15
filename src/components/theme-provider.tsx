@@ -1,4 +1,3 @@
-// theme-provider.tsx 수정
 "use client";
 
 import * as React from "react";
