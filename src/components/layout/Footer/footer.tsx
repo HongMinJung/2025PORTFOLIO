@@ -6,7 +6,7 @@ interface FooterProps {
 
 export function Footer({ className }: FooterProps) {
   return (
-    <footer className={cn("border-t border-border bg-card", className)}>
+    <footer className={cn("border-t border-gray-200 dark:border-gray-800 bg-card", className)}>
       <div className="py-8 md:py-12 flex flex-col justify-center items-center">
         <div className="text-sm text-muted-foreground">
           <p>
@@ -16,7 +16,7 @@ export function Footer({ className }: FooterProps) {
         <div className="mt-4 flex items-center space-x-4">
           {/* 깃허브 */}
           <a
-            href="https://github.com"
+            href="https://github.com/HongMinJung"
             target="_blank"
             rel="noopener noreferrer"
             className="text-muted-foreground hover:text-foreground transition-colors"

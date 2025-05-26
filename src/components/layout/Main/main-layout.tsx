@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { cn } from "@/lib/utils";
+// import { cn } from "@/lib/utils";
 import { Header } from "../Header/header";
 import { Footer } from "../Footer/footer";
 
@@ -10,17 +10,17 @@ interface MainLayoutProps {
 }
 
 const navItems = [
-  { label: "홈", href: "/" },
-  { label: "소개", href: "/about" },
-  { label: "기술 스택", href: "/skills" },
-  { label: "프로젝트", href: "/projects" },
+  { label: "HOME", href: "/" },
+  { label: "ABOUT", href: "/about" },
+  { label: "PROJECTS", href: "/projects" },
+  { label: "CONTACT", href: "/contact" },
 ];
 
 export function MainLayout({ children, className }: MainLayoutProps) {
   return (
     <div className="flex flex-col min-h-screen">
       <Header navItems={navItems} />
-      <main className={cn("flex-1", className)}>{children}</main>
+      <main className="flex-1">{children}</main>
       <Footer />
     </div>
   );

@@ -1,72 +1,46 @@
 "use client";
 
-import { useTheme } from "@/components/theme-provider";
-import { Button } from "@/components/ui/Button/button";
-import { Moon, Sun } from "lucide-react";
-import { useEffect, useState } from "react";
-
+import { useState, useEffect } from "react";
+import { useTheme } from "next-themes";
+import { Moon, Sun } from 'lucide-react';
 export function ThemeToggle() {
-  const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const { theme, setTheme } = useTheme();
 
-  // 클라이언트 사이드에서만 마운트 상태 업데이트
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  // 현재 실제 적용된 테마 확인
-  const getCurrentTheme = () => {
-    if (!mounted) return "light";
-
-    if (theme === "system") {
-      return window.matchMedia("(prefers-color-scheme: dark)").matches
-        ? "dark"
-        : "light";
-    }
-
-    return theme;
-  };
-
-  const currentTheme = getCurrentTheme();
-
-  // 로그로 현재 상태 확인
-  useEffect(() => {
-    if (mounted) {
-      console.log("Current theme:", theme);
-      console.log(
-        "System theme:",
-        window.matchMedia("(prefers-color-scheme: dark)").matches
-          ? "dark"
-          : "light"
-      );
-    }
-  }, [theme, mounted]);
+  if (!mounted) {
+    return null;
+  }
 
   const toggleTheme = () => {
-    if (currentTheme === "dark") {
+    if (theme === "dark") {
       setTheme("light");
+    } else if (theme === "light") {
+      setTheme("system");
     } else {
       setTheme("dark");
     }
   };
 
-  if (!mounted) {
-    return <Button variant="ghost" size="icon" aria-label="Toggle theme" />;
-  }
+  const getThemeIcon = () => {
+    // 시스템 테마일 때는 현재 적용된 테마에 따라 아이콘 표시
+    const currentTheme = theme === "system" 
+      ? window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
+      : theme;
+    
+    return currentTheme === "dark" ? <Sun /> : <Moon />;
+  };
 
   return (
-    <Button
-      variant="ghost"
-      size="icon"
+    <button
       onClick={toggleTheme}
-      aria-label="Toggle theme"
+      // className="p-2 text-lg rounded-md transition-colors"
+      aria-label="테마 전환"
     >
-      {currentTheme === "dark" ? (
-        <Sun className="h-5 w-5" />
-      ) : (
-        <Moon className="h-5 w-5" />
-      )}
-      <span className="sr-only">Toggle theme</span>
-    </Button>
+      {getThemeIcon()}
+    </button>
   );
 }
