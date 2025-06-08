@@ -19,9 +19,7 @@ body {
   width: 100%;
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  scroll-behavior: smooth;
-  scroll-snap-type: y mandatory;
+  /* font-family: Pretendard, sans-serif; */
   overflow-y: scroll;
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
@@ -38,16 +36,12 @@ body::-webkit-scrollbar {
   --foreground: #ededed;
 }
 
-section {
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
-}
-
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
 }
+
 .red-text {
   color: #ff1e1e;
 }

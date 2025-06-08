@@ -24,8 +24,8 @@ export function Hero({ className }: { className?: string }) {
       
       {/* 데스크탑 */}
       <div className="hidden md:block">
-        <section ref={ref} className={"relative h-screen min-h-screen w-full pt-64 pb-20 scroll-snap-start " + (className || "") }>
-          <div className="flex flex-col justify-between h-full container mx-auto">
+        <section ref={ref} className={"relative w-full h-screen p-20 scroll-snap-start " + (className || "") }>
+          <div className="h-full flex flex-col justify-between gap-40 container mx-auto">
             {/* top 텍스트 */}
             <motion.div 
               className="flex justify-end"
@@ -163,7 +163,7 @@ export function Hero({ className }: { className?: string }) {
                 </div>
                 <div className="flex gap-4">
                   <span className="w-64">POSITION</span>
-                  <span>FULL STACK DEVELOPER</span>
+                  <span>FRONTEND DEVELOPER</span>
                 </div>
               </div>
 

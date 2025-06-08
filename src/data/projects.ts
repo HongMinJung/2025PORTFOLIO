@@ -9,6 +9,7 @@ export type Project = {
   features: string[];
   category: string;
   year: string;
+  videoUrl?: string;
 };
 
 export const projects: Project[] = [
@@ -17,7 +18,7 @@ export const projects: Project[] = [
     title: "포트폴리오 웹사이트",
     description: "Next.js, TypeScript, Tailwind CSS를 사용한 모던한 포트폴리오 웹사이트입니다. Three.js를 활용한 3D 인터랙션과 반응형 디자인을 구현했습니다.",
     techStack: ["Next.js", "TypeScript", "Tailwind CSS", "Three.js"],
-    imageUrl: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop",
+    imageUrl: "https://placehold.co/800x600/000/fff.png?text=Project+Image",
     githubUrl: "https://github.com/yourusername/portfolio",
     liveUrl: "https://your-portfolio.com",
     features: [
@@ -27,14 +28,15 @@ export const projects: Project[] = [
       "섹션 오버랩 효과"
     ],
     category: "DIGITAL",
-    year: "2024"
+    year: "2024",
+    videoUrl: "https://cdn.jsdelivr.net/gh/madebykin/personal/TRH-1.1.mp4"
   },
   {
     id: "project2",
     title: "프로젝트 2",
     description: "Next.js, TypeScript, Tailwind CSS를 사용한 모던한 포트폴리오 웹사이트입니다. Three.js를 활용한 3D 인터랙션과 반응형 디자인을 구현했습니다.",
     techStack: ["Next.js", "TypeScript", "Tailwind CSS", "Three.js"],
-    imageUrl: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop",
+    imageUrl: "https://placehold.co/800x600/000/fff.png?text=Project+Image",
     githubUrl: "https://github.com/yourusername/portfolio",
     liveUrl: "https://your-portfolio.com",
     features: [
@@ -50,7 +52,7 @@ export const projects: Project[] = [
     title: "프로젝트 3",
     description: "프로젝트 3에 대한 설명을 입력해주세요.",
     techStack: ["Vue.js", "Firebase", "Tailwind CSS"],
-    imageUrl: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=2070&auto=format&fit=crop",
+    imageUrl: "https://placehold.co/800x600/000/fff.png?text=Project+Image",
     githubUrl: "https://github.com/yourusername/project3",
     features: [
       "기능 1",
@@ -65,7 +67,7 @@ export const projects: Project[] = [
     title: "프로젝트 4",
     description: "프로젝트 4에 대한 설명을 입력해주세요.",
     techStack: ["React Native", "Firebase", "Redux"],
-    imageUrl: "https://images.unsplash.com/photo-1551650975-87deedd944c3?q=80&w=1974&auto=format&fit=crop",
+    imageUrl: "https://placehold.co/800x600/000/fff.png?text=Project+Image",
     githubUrl: "https://github.com/yourusername/project4",
     features: [
       "기능 1",
@@ -80,7 +82,7 @@ export const projects: Project[] = [
     title: "프로젝트 5",
     description: "프로젝트 5에 대한 설명을 입력해주세요.",
     techStack: ["Next.js", "Prisma", "PostgreSQL"],
-    imageUrl: "https://images.unsplash.com/photo-1555066931-bf19f8fd8865?q=80&w=2071&auto=format&fit=crop",
+    imageUrl: "https://placehold.co/800x600/000/fff.png?text=Project+Image",
     githubUrl: "https://github.com/yourusername/project5",
     features: [
       "기능 1",

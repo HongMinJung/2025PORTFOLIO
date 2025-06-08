@@ -5,6 +5,7 @@ import { Toast } from "@/components/ui/Toast/toast";
 import { useState, useEffect } from "react";
 import { X } from "lucide-react";
 import { contactStyles } from "@/styles/contact";
+import { motion } from "framer-motion";
 
 interface ContactModalProps {
   isOpen: boolean;
@@ -73,12 +74,18 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       {/* 배경 오버레이 */}
       <div
-        className={contactStyles.modal.overlay}
+        className="fixed inset-0 bg-black/30 backdrop-blur-sm"
         onClick={onClose}
       />
 
       {/* 모달 컨텐츠 */}
-      <div className={contactStyles.modal.container}>
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9, y: 20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.9, y: 20 }}
+        transition={{ duration: 0.2, ease: "easeOut" }}
+        className={contactStyles.modal.container}
+      >
         <div className={contactStyles.modal.header}>
           <h2 className="text-2xl font-bold">연락하기</h2>
           <button
@@ -128,7 +135,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
             {isSubmitting ? "전송 중" : "문의하기"}
           </button>
         </form>
-      </div>
+      </motion.div>
 
       <Toast
         message={toastMessage}
