@@ -14,7 +14,7 @@ interface ContentCardProps {
   onSkillClick: (title: SkillType, description: string, e: React.MouseEvent) => void;
 }
 
-const SkillCard = ({ title, description, onClick }: SkillCardProps) => (
+const SkillCard = ({ title, onClick }: SkillCardProps) => (
   <motion.div 
     whileHover={{ y: -5, scale: 1.02 }}
     onClick={onClick}
@@ -32,7 +32,7 @@ const hashtags = [
   "#신입", "#UIUX", "#소통", "#성장", "#개발자"
 ];
 
-export const ContentCard = ({ isInView, onSkillClick }: ContentCardProps) => {
+export const ContentCard = ({ onSkillClick }: ContentCardProps) => {
   return (
     <div className="relative w-full h-[38rem] md:w-auto mt-20 flex flex-col gap-26">
       {/* 소개 */}

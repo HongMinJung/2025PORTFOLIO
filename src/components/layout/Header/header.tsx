@@ -24,7 +24,6 @@ export function Header({ navItems, logo, className }: HeaderProps) {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [isMounted, setIsMounted] = React.useState(false);
-  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
 
   // 클라이언트 사이드에서만 마운트 상태 업데이트
   React.useEffect(() => {

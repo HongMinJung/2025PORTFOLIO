@@ -40,7 +40,7 @@ export function ProjectInfo({ project }: ProjectInfoProps) {
         </motion.p>
 
         <div className="flex gap-2">
-          {project.techStack.map((tech, index) => (
+          {project.techStack.map((tech) => (
             <p
               key={tech}
               className="px-3 py-1 text-sm bg-black/50 dark:bg-white/70 text-white dark:text-black rounded-full shadow-md shadow-black/40 dark:shadow-white/40 hover:bg-black/70 dark:hover:bg-white/90 hover:translate-y-[-2px] transition-all duration-300 cursor-pointer"

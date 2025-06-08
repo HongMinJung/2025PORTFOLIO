@@ -49,9 +49,9 @@ export default function HeroMobile({ className }: { className?: string }) {
           </div>
           <div className="text-xs mt-1 text-center">오늘도 저는</div>
           <div className="text-sm font-bold text-center leading-tight">
-            "디자인의 감각을
+            &quot; 디자인의 감각을
             <br/>
-            코드로 구현합니다."
+            코드로 구현합니다. &quot;
           </div>
         </motion.div>
 
@@ -72,7 +72,9 @@ export default function HeroMobile({ className }: { className?: string }) {
           </div>
           <div className="text-xs mt-1 text-center">오늘도 저는</div>
           <div className="text-sm font-bold text-center leading-tight">
-            "끊임없이 고민하고<br/>배우며 성장합니다."
+            &quot; 끊임없이 고민하고
+            <br/>
+            배우며 성장합니다. &quot;
           </div>
         </motion.div>
 
@@ -93,7 +95,9 @@ export default function HeroMobile({ className }: { className?: string }) {
           </div>
           <div className="text-xs mt-1 text-center">오늘도 저는</div>
           <div className="text-sm font-bold text-center leading-tight">
-            "커뮤니케이션을<br/>중요하게 생각합니다."
+            &quot; 커뮤니케이션을
+            <br/>
+            중요하게 생각합니다. &quot;
           </div>
         </motion.div>
       </motion.div>

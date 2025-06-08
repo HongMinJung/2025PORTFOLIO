@@ -96,9 +96,9 @@ export function Hero({ className }: { className?: string }) {
                   </div>
                   <div className="text-xs mt-1">오늘도 저는</div>
                   <div className="text-lg font-bold text-right">
-                    " 디자인의 감각을
+                    &quot; 디자인의 감각을
                     <br />
-                    코드로 구현합니다. "
+                    코드로 구현합니다. &quot;
                   </div>
                 </motion.div>
                 <motion.div 
@@ -118,9 +118,9 @@ export function Hero({ className }: { className?: string }) {
                   </div>
                   <div className="text-xs mt-1">오늘도 저는</div>
                   <div className="text-lg font-bold text-right">
-                    " 끊임없이 고민하고
+                    &quot; 끊임없이 고민하고
                     <br />
-                    배우며 성장합니다. "
+                    배우며 성장합니다. &quot;
                   </div>
                 </motion.div>
                 <motion.div 
@@ -140,9 +140,9 @@ export function Hero({ className }: { className?: string }) {
                   </div>
                   <div className="text-xs mt-1">오늘도 저는</div>
                   <div className="text-lg font-bold text-right">
-                    " 커뮤니케이션을
+                    &quot; 커뮤니케이션을
                     <br />
-                    중요하게 생각합니다. "
+                    중요하게 생각합니다. &quot;
                   </div>
                 </motion.div>
               </motion.div>

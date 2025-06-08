@@ -4,7 +4,7 @@ import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
 import { ProfileCard } from "./ProfileCard";
 
-export function About({ className }: { className?: string }) {
+export function About( className?: string ) {
   const [isFlipped, setIsFlipped] = useState(false);
   const titleRef = useRef(null);
 

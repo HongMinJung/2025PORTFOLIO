@@ -16,7 +16,7 @@ const navItems = [
   { label: "CONTACT", href: "/contact" },
 ];
 
-export function MainLayout({ children, className }: MainLayoutProps) {
+export function MainLayout({ children }: MainLayoutProps) {
   return (
     <div className="flex flex-col min-h-screen">
       <Header navItems={navItems} />
