@@ -4,14 +4,14 @@ import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
 import { ProfileCard } from "./ProfileCard";
 
-export function About({ className }: { className?: string }) {
+export function About() {
   const [isFlipped, setIsFlipped] = useState(false);
   const titleRef = useRef(null);
 
   const titleInView = useInView(titleRef, { once: true, amount: 0.5 });
 
   return (
-    <section className="relative w-full flex flex-col justify-center py-32 min-h-svh md:min-h-[calc(100vh-112px)] snap-start">
+    <section className="relative flex flex-col items-center justify-center min-h-svh md:min-h-[calc(100vh-112px)] snap-start">
       <div className="container mx-auto px-4">
         {/* Title */}
         <div className="relative flex flex-col md:flex-row items-center justify-center gap-8 mb-20">
