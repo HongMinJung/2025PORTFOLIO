@@ -24,11 +24,11 @@ export function Hero({ className }: { className?: string }) {
       
       {/* 데스크탑 */}
       <div className="hidden md:block">
-        <section ref={ref} className={"relative w-full h-screen p-20 scroll-snap-start " + (className || "") }>
-          <div className="h-full flex flex-col justify-between gap-40 container mx-auto">
+        <section ref={ref} className={"relative w-full h-full snap-start overflow-hidden " + (className || "") }>
+          <div className="min-h-[calc(100vh-112px)] flex flex-col justify-between gap-12 container mx-auto px-6 py-24">
             {/* top 텍스트 */}
             <motion.div 
-              className="flex justify-end"
+              className="flex justify-end pt-4"
               initial={{ opacity: 0, y: -20 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
               transition={{ duration: 1, delay: 1}}
@@ -41,7 +41,7 @@ export function Hero({ className }: { className?: string }) {
             </motion.div>
 
             {/* middle 텍스트 */}
-            <div className="flex flex-row justify-between items-center">
+            <div className="flex flex-row justify-between items-center py-8">
               {/* 좌측 텍스트 */}
               <motion.div 
                 className="flex flex-col justify-center gap-8"
@@ -150,7 +150,7 @@ export function Hero({ className }: { className?: string }) {
 
             {/* bottom 텍스트 */}
             <motion.div 
-              className="flex flex-row justify-between items-end"
+              className="flex flex-row justify-between items-end pb-4"
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 1, delay: 1 }}
@@ -176,7 +176,7 @@ export function Hero({ className }: { className?: string }) {
               {/* bottom 우측 버튼 */}
               <div>
                 <Button
-                  className="flex items-center gap-2 border border-black dark:border-white px-6 py-3 rounded-lg bg-transparent text-black dark:text-white hover:border-primary-400 hover:text-primary-400 dark:hover:border-secondary-400 dark:hover:text-secondary-400 transition focus:outline-none focus:ring-2 focus:border-primary-500 focus:ring-primary-500 dark:focus:border-secondary-400 dark:focus:ring-secondary-400"
+                  className="flex items-center gap-2 border border-black dark:border-white px-6 py-3 rounded-lg bg-transparent hover:border-primary-400 hover:text-primary-400 dark:hover:border-secondary-400 dark:hover:text-secondary-400 transition focus:outline-none focus:ring-2 focus:border-primary-500 focus:ring-primary-500 dark:focus:border-secondary-400 dark:focus:ring-secondary-400"
                   onClick={() => setShowModal(true)}
                 >
                   CONTACT

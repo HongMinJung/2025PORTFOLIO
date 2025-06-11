@@ -30,7 +30,7 @@ export function Contact() {
   }, [submitStatus]);
 
   return (
-    <section className="min-h-screen max-w-6xl mx-auto px-4 md:px-8 py-12 md:py-20 scroll-snap-start">
+    <section className="min-h-svh md:min-h-[calc(100vh-112px)] max-w-6xl mx-auto px-4 md:px-8 py-12 md:py-20 snap-start">
       <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-8 text-center">
         Contact
       </h2>

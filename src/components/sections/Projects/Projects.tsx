@@ -1,137 +1,160 @@
 "use client";
 
+import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
 import { projects } from "@/data/projects";
-import { useState, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { ProjectCard } from "./components/ProjectCard";
-import { ProjectInfo } from "./components/ProjectInfo";
-import { ProjectDetails } from "./components/ProjectDetails";
+
+const categories = ["ALL", "DIGITAL", "WEB", "APP", "STRATEGY", "BIDAPP"];
 
 export function Projects() {
-  const [current, setCurrent] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
-  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const cardRef = useRef<HTMLDivElement>(null);
+  const [selectedCategory, setSelectedCategory] = useState("ALL");
+  const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
 
-  const displayedProjects = projects;
-  const mainProject = displayedProjects[current];
+  const filteredProjects = selectedCategory === "ALL" 
+    ? projects 
+    : projects.filter(project => project.category === selectedCategory);
 
-  const handleNext = () => {
-    if (isAnimating) return;
-    setIsAnimating(true);
-    setCurrent((next) => (next + 1) % displayedProjects.length);
-    setTimeout(() => setIsAnimating(false), 800);
+  const currentProject = filteredProjects[currentProjectIndex];
+
+  const nextProject = () => {
+    setCurrentProjectIndex((prev) => 
+      prev === filteredProjects.length - 1 ? 0 : prev + 1
+    );
   };
 
-  const handlePrev = () => {
-    if (isAnimating) return;
-    setIsAnimating(true);
-    setCurrent((prev) => (prev - 1 + displayedProjects.length) % displayedProjects.length);
-    setTimeout(() => setIsAnimating(false), 800);
-  };
-
-  const handleWheel = (e: React.WheelEvent) => {
-    if (isAnimating) {
-      e.preventDefault();
-      return;
-    }
-
-    if (current === displayedProjects.length - 1 && e.deltaY > 0) {
-      return;
-    }
-
-    e.preventDefault();
-    if (e.deltaY > 0) handleNext();
-    else if (e.deltaY < 0) handlePrev();
-  };
-
-  const handleMouseMove = (e: React.MouseEvent, cardIndex: number) => {
-    if (!cardRef.current || hoveredCard !== cardIndex) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    setMousePosition({ x, y });
-  };
-
-  const handleMouseEnter = (cardIndex: number) => {
-    setHoveredCard(cardIndex);
-  };
-
-  const handleMouseLeave = () => {
-    setHoveredCard(null);
-    setMousePosition({ x: 0, y: 0 });
-  };
-
-  const getTiltTransform = (cardIndex: number) => {
-    if (hoveredCard !== cardIndex || !cardRef.current) {
-      return { rotateX: 0, rotateY: 0 };
-    }
-
-    const rect = cardRef.current.getBoundingClientRect();
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-
-    const rotateY = ((mousePosition.x - centerX) / centerX) * 20;
-    const rotateX = ((centerY - mousePosition.y) / centerY) * 15;
-
-    return { rotateX, rotateY };
+  const prevProject = () => {
+    setCurrentProjectIndex((prev) => 
+      prev === 0 ? filteredProjects.length - 1 : prev - 1
+    );
   };
 
   return (
-    <section
-      className="relative flex flex-col items-center justify-center h-screen scroll-snap-start"
-      onWheel={handleWheel}
-      tabIndex={0}
-    >
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 items-center justify-center w-full max-w-7xl px-8">
-        <ProjectInfo project={mainProject} />
+    <section className="relative flex flex-col items-center justify-center min-h-svh md:min-h-[calc(100vh-112px)] snap-start">
+      <div className="max-w-7xl mx-auto px-4 md:px-8 py-20 w-full">
+        <h1 className="text-4xl md:text-6xl font-bold mb-16 text-center">
+          BEST OF OUR WORKS
+        </h1>
 
-        <div className="flex flex-col items-center justify-center">
-          <div
-            ref={cardRef}
-            className="relative w-[300px] h-[340px]"
-            style={{ perspective: "800px" }}
-          >
-            {displayedProjects.map((project, idx) => {
-              const isActive = idx === current;
-              const isPrev = idx === (current - 1 + displayedProjects.length) % displayedProjects.length;
-              const isNext = idx === (current + 1) % displayedProjects.length;
+        {/* Category Filter */}
+        <div className="flex justify-center gap-8 mb-16">
+          {categories.map((category) => (
+            <button
+              key={category}
+              onClick={() => {
+                setSelectedCategory(category);
+                setCurrentProjectIndex(0);
+              }}
+              className={`text-lg font-medium transition-colors ${
+                selectedCategory === category
+                  ? "text-white"
+                  : "text-gray-500 hover:text-white"
+              }`}
+            >
+              {category}
+            </button>
+          ))}
+        </div>
 
-              return (
-                <AnimatePresence key={project.id}>
-                  <ProjectCard
-                    project={project}
-                    isActive={isActive}
-                    isPrev={isPrev}
-                    isNext={isNext}
-                    index={idx}
-                    currentIndex={current}
-                    hoveredCard={hoveredCard}
-                    mousePosition={mousePosition}
-                    cardRef={cardRef}
-                    onMouseMove={handleMouseMove}
-                    onMouseEnter={handleMouseEnter}
-                    onMouseLeave={handleMouseLeave}
-                    getTiltTransform={getTiltTransform}
-                  />
-                </AnimatePresence>
-              );
-            })}
+        {/* Project Display */}
+        <div className="relative">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="relative h-[50vh] w-full group">
+              <Image
+                src={currentProject.imageUrl}
+                alt={currentProject.title}
+                fill
+                className="object-cover transition-transform duration-500 group-hover:scale-105 rounded-3xl"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl" />
+            </div>
+            <div className="space-y-8">
+              <div className="space-y-4">
+                <span className="text-primary text-lg font-medium">
+                  {currentProject.category}
+                </span>
+                <h2 className="text-4xl md:text-5xl font-bold">
+                  {currentProject.title}
+                </h2>
+                <p className="text-gray-400 text-lg">
+                  {currentProject.description}
+                </p>
+              </div>
+
+              <div className="flex flex-wrap gap-3">
+                {currentProject.techStack.map((tech) => (
+                  <span
+                    key={tech}
+                    className="px-4 py-2 bg-white/10 rounded-full text-sm hover:bg-white/20 transition-colors"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+
+              <div className="flex gap-6">
+                <Link
+                  href={currentProject.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-lg hover:text-primary transition-colors flex items-center gap-2"
+                >
+                  GitHub
+                  <span className="text-xl">→</span>
+                </Link>
+                {currentProject.liveUrl && (
+                  <Link
+                    href={currentProject.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-lg hover:text-primary transition-colors flex items-center gap-2"
+                  >
+                    Live Demo
+                    <span className="text-xl">→</span>
+                  </Link>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Navigation */}
+          <div className="absolute bottom-0 right-0 flex items-center gap-8">
+            <span className="text-2xl">
+              {String(currentProjectIndex + 1).padStart(2, '0')} / {String(filteredProjects.length).padStart(2, '0')}
+            </span>
+            <div className="flex gap-4">
+              <button
+                onClick={prevProject}
+                className="p-4 hover:bg-white/10 rounded-full transition-colors"
+              >
+                ←
+              </button>
+              <button
+                onClick={nextProject}
+                className="p-4 hover:bg-white/10 rounded-full transition-colors"
+              >
+                →
+              </button>
+            </div>
           </div>
         </div>
 
-        <ProjectDetails project={mainProject} />
+        {/* Stats Section */}
+        <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="text-center">
+            <div className="text-4xl font-bold mb-2">50+</div>
+            <div className="text-gray-400">Projects Completed</div>
+          </div>
+          <div className="text-center">
+            <div className="text-4xl font-bold mb-2">30+</div>
+            <div className="text-gray-400">Happy Clients</div>
+          </div>
+          <div className="text-center">
+            <div className="text-4xl font-bold mb-2">100%</div>
+            <div className="text-gray-400">Client Satisfaction</div>
+          </div>
+        </div>
       </div>
-
-      <motion.div
-        className="absolute bottom-8 text-center text-black/80 text-sm font-medium tracking-widest"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.8 }}
-      >
-        {current + 1} / {displayedProjects.length}
-      </motion.div>
     </section>
   );
 }
