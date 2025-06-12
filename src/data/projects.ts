@@ -7,10 +7,20 @@ export type Project = {
   githubUrl: string;
   liveUrl?: string;
   features: string[];
-  category: string;
+  category: string[];
   year: string;
   videoUrl?: string;
 };
+
+// const categories = [
+//   "ALL",           // 전체 프로젝트
+//   "RESPONSIVE",    // 반응형 웹
+//   "LANDING",       // 랜딩 페이지
+//   "CLONE",         // 클론 코딩 프로젝트
+//   "PERSONAL",      // 개인 프로젝트
+//   "TEAM",          // 팀 협업 프로젝트
+//   "CLIENT"         // 클라이언트 의뢰 프로젝트
+// ];
 
 export const projects: Project[] = [
   {
@@ -27,7 +37,10 @@ export const projects: Project[] = [
       "다크모드 지원",
       "섹션 오버랩 효과"
     ],
-    category: "DIGITAL",
+    category: [
+      "ALL",
+      "RESPONSIVE"
+    ],
     year: "2024",
     videoUrl: "https://cdn.jsdelivr.net/gh/madebykin/personal/TRH-1.1.mp4"
   },
@@ -44,7 +57,7 @@ export const projects: Project[] = [
       "기능 2",
       "기능 3"
     ],
-    category: "WEB",
+    category: ["ALL", "RESPONSIVE"],
     year: "2024"  
   },
   {
@@ -59,7 +72,7 @@ export const projects: Project[] = [
       "기능 2",
       "기능 3"
     ],
-    category: "APP",
+    category: ["ALL", "CLIENT"],
     year: "2024"
   },
   {
@@ -74,7 +87,7 @@ export const projects: Project[] = [
       "기능 2",
       "기능 3"
     ],
-    category: "STRATEGY",
+    category: ["ALL", "CLONE"],
     year: "2024"
   },
   {
@@ -89,7 +102,7 @@ export const projects: Project[] = [
       "기능 2",
       "기능 3"
     ],
-    category: "BIDAPP",
+    category: ["ALL", "TEAM"],
     year: "2024"
   }
 ]; 

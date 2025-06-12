@@ -29,15 +29,15 @@ const SkillCard = ({ title, onClick }: SkillCardProps) => (
 );
 
 const hashtags = [
-  "#신입", "#UIUX", "#소통", "#성장", "#개발자"
+  "#신입", "#UIUX", "#반응형웹", "#성실함", "호기심대마왕", "커피러버☕️", "지속가능한개발", "성장형인재", "인내심레벨MAX"
 ];
 
 export const ContentCard = ({ onSkillClick }: ContentCardProps) => {
   return (
-    <div className="relative w-full h-[38rem] md:w-auto mt-20 flex flex-col gap-26">
+    <div className="relative w-full h-[38rem] md:w-auto mt-20 flex flex-col gap-20">
       {/* 소개 */}
       <div className="flex flex-col items-center">
-        <p className="text-md text-gray-600 dark:text-gray-300">
+        <p className="text-sm text-gray-600 dark:text-gray-300">
           <Sprout className=" text-green-700" />
           사용자의 경험을 생각하며 코드 한 줄에 고민을 담습니다. <br />
           기획과 디자인을 이해하며 코드 한 줄에 소통을 담습니다. <br />
@@ -61,7 +61,7 @@ export const ContentCard = ({ onSkillClick }: ContentCardProps) => {
         </div>
       </div>
       {/* 해쉬태그 */}
-      <div className="w-full absolute bottom-0 flex flex-wrap gap-2 justify-center mt-4">
+      <div className="w-full flex flex-wrap gap-2 justify-center">
         {hashtags.map((tag) => (
           <span
             key={tag}

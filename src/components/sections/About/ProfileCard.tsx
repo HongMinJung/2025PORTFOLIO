@@ -73,7 +73,7 @@ export const ProfileCard = ({ isInView, isFlipped, setIsFlipped }: ProfileCardPr
         >
           {/* 카드 앞면*/}
           <div className="w-full" style={{ backfaceVisibility: "hidden" }}>
-            <div className="relative w-[22rem] h-[28rem] mb-10 rounded-2xl overflow-hidden shadow-xl">
+            <div className="relative w-[18rem] h-[22rem] md:w-[20rem] md:h-[24rem] mb-10 rounded-2xl overflow-hidden shadow-xl">
               <Image
                 src="/images/profile.jpg"
                 alt="Profile"

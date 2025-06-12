@@ -150,7 +150,7 @@ export function Hero({ className }: { className?: string }) {
 
             {/* bottom 텍스트 */}
             <motion.div 
-              className="flex flex-row justify-between items-end pb-4"
+              className="flex flex-row justify-between items-center pb-4"
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 1, delay: 1 }}
@@ -168,7 +168,7 @@ export function Hero({ className }: { className?: string }) {
               </div>
 
               {/* bottom 스크롤 안내 메시지 */}
-              <div className="flex flex-col items-center text-sm animate-bounce pointer-events-none select-none mr-10">
+              <div className="flex flex-col items-center text-sm animate-bounce pointer-events-none select-none mr-60">
                 <p>SCROLL DOWN</p>
                 <MoveDown className="w-20 h-20" />
               </div>

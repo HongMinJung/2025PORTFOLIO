@@ -8,10 +8,10 @@ export function About() {
   const [isFlipped, setIsFlipped] = useState(false);
   const titleRef = useRef(null);
 
-  const titleInView = useInView(titleRef, { once: true, amount: 0.5 });
+  const titleInView = useInView(titleRef, { once: false, amount: 0.3 });
 
   return (
-    <section className="relative flex flex-col items-center justify-center min-h-svh md:min-h-[calc(100vh-112px)] snap-start">
+    <section className="relative flex flex-col items-center justify-center min-h-screen md:min-h-[calc(100vh-112px)] snap-start">
       <div className="container mx-auto px-4">
         {/* Title */}
         <div className="relative flex flex-col md:flex-row items-center justify-center gap-8 mb-20">
@@ -37,13 +37,13 @@ export function About() {
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={titleInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
-            transition={{ duration: 0.8, ease: "easeOut", delay: 1.2 }}
+            transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
           >
             <ProfileCard isInView={titleInView} isFlipped={isFlipped} setIsFlipped={setIsFlipped} />
           </motion.div>
 
           <motion.div
-            className="absolute bottom-1/3 right-0 md:right-1/4 -translate-y-1/3 md:-translate-x-1/4 z-10 flex items-center gap-3"
+            className="absolute bottom-30 md:bottom-1/3 right-0 md:right-1/4 md:-translate-y-1/3 md:-translate-x-1/4 z-10 flex items-center gap-3"
             initial={{ opacity: 0, x: 100 }}
             animate={{ opacity: isFlipped ? 0 : 1, x: titleInView ? 0 : 100 }}
             transition={{ duration: 0.4, ease: "easeOut", delay: 0.4 }}
