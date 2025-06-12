@@ -11,13 +11,13 @@ export function About() {
   const titleInView = useInView(titleRef, { once: false, amount: 0.3 });
 
   return (
-    <section className="relative flex flex-col items-center justify-center min-h-screen md:min-h-[calc(100vh-112px)] snap-start">
+    <section className="relative flex flex-col items-center justify-center min-h-screen md:min-h-[calc(100vh-112px)] snap-start overflow-x-hidden">
       <div className="container mx-auto px-4">
         {/* Title */}
         <div className="relative flex flex-col md:flex-row items-center justify-center gap-8 mb-20">
           <motion.div 
             ref={titleRef}
-            className="absolute top-28 left-0 md:left-1/3 md:-translate-x-1/3 z-10 flex items-center gap-3"
+            className="absolute top-28 left-1/2 md:left-1/3 -translate-x-1/2 md:-translate-x-1/3 z-10 flex items-center gap-3"
             initial={{ opacity: 0, x: -100 }}
             animate={{ opacity: isFlipped ? 0 : 1, x: titleInView ? 0 : -100 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
@@ -43,7 +43,7 @@ export function About() {
           </motion.div>
 
           <motion.div
-            className="absolute bottom-30 md:bottom-1/3 right-0 md:right-1/4 md:-translate-y-1/3 md:-translate-x-1/4 z-10 flex items-center gap-3"
+            className="absolute bottom-30 md:bottom-1/3 right-1/2 md:right-1/4 translate-x-1/2 md:translate-x-0 md:-translate-y-1/3 md:-translate-x-1/4 z-10 flex items-center gap-3"
             initial={{ opacity: 0, x: 100 }}
             animate={{ opacity: isFlipped ? 0 : 1, x: titleInView ? 0 : 100 }}
             transition={{ duration: 0.4, ease: "easeOut", delay: 0.4 }}

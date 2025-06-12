@@ -206,7 +206,7 @@ export function Contact() {
               "전송 중..."
             ) : (
               <>
-                <Send className="w-4 h-4 md:w-5 md:h-5" />
+                <Send className="w-3 h-3" />
                 문의하기
               </>
             )}

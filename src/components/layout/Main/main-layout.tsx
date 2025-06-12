@@ -26,9 +26,9 @@ export function MainLayout({ children }: MainLayoutProps) {
   }, []);
 
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col h-screen overflow-x-hidden">
       <Header navItems={navItems} />
-      <main className="flex-1 overflow-y-scroll md:snap-y md:snap-mandatory">{children}</main>
+      <main className="flex-1 overflow-y-scroll overflow-x-hidden md:snap-y md:snap-mandatory">{children}</main>
       <Footer />
     </div>
   );

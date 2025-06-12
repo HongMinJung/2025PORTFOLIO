@@ -187,7 +187,7 @@ export function Projects() {
                     href={currentProject.githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="border border-black dark:border-white hover:border-primary-700 dark:hover:border-secondary-500 rounded-xl py-8 px-20 text-md hover:text-primary-700 dark:hover:text-secondary-500 transition-colors flex items-center gap-2"
+                    className="border border-black dark:border-white hover:border-primary-700 dark:hover:border-secondary-500 rounded-xl py-4 px-6 md:py-8 md:px-20 text-md hover:text-primary-700 dark:hover:text-secondary-500 transition-colors flex items-center gap-2"
                   >
                     GIT HUB
                     <motion.div

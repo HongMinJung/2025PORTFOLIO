@@ -159,9 +159,21 @@ module.exports = {
           to: { height: 0 },
         },
         twinkle: {
-          '0%': { opacity: 1, fill: 'none' },
-          '50%': { opacity: 0.7, fill: 'currentColor' },
-          '100%': { opacity: 1, fill: 'none' },
+          '0%': { 
+            opacity: 1,
+            strokeDasharray: '0 100',
+            strokeDashoffset: '0'
+          },
+          '50%': { 
+            opacity: 0.7,
+            strokeDasharray: '100 0',
+            strokeDashoffset: '0'
+          },
+          '100%': { 
+            opacity: 1,
+            strokeDasharray: '0 100',
+            strokeDashoffset: '0'
+          },
         },
       },
       animation: {
