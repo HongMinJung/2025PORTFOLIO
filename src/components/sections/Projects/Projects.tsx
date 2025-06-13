@@ -2,10 +2,11 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { projects } from "@/data/projects";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, useInView } from "framer-motion";
+import { HandSwipeRight } from "@phosphor-icons/react";
 
 const categories = [
   "ALL",           // 전체 프로젝트
@@ -22,6 +23,9 @@ export function Projects() {
   const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: false, amount: 0.3 });
+  const [showSwipeHint, setShowSwipeHint] = useState(false);
+  const touchStartX = useRef<number | null>(null);
+  const touchEndX = useRef<number | null>(null);
 
   const filteredProjects = selectedCategory === "ALL" 
     ? projects 
@@ -39,6 +43,49 @@ export function Projects() {
     setCurrentProjectIndex((prev) => 
       prev === 0 ? filteredProjects.length - 1 : prev - 1
     );
+  };
+
+  // 스와이프 안내 아이콘 노출 타이밍
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.innerWidth < 768 && isInView) {
+      setShowSwipeHint(true);
+      const timer = setTimeout(() => setShowSwipeHint(false), 1500);
+      return () => clearTimeout(timer);
+    }
+  }, [isInView]);
+
+  // 스와이프 이벤트 핸들러 (모바일 환경에서만 동작)
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (!isMobile) return;
+    touchStartX.current = e.touches[0].clientX;
+    touchEndX.current = null;
+  };
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!isMobile) return;
+    touchEndX.current = e.touches[0].clientX;
+  };
+  const handleTouchEnd = () => {
+    if (!isMobile) return;
+    if (
+      touchStartX.current !== null &&
+      touchEndX.current !== null
+    ) {
+      const distance = touchStartX.current - touchEndX.current;
+      if (Math.abs(distance) > 40) {
+        if (distance > 0) {
+          // 왼쪽으로 스와이프 → 다음
+          console.log('스와이프: 다음');
+          nextProject();
+        } else {
+          // 오른쪽으로 스와이프 → 이전
+          console.log('스와이프: 이전');
+          prevProject();
+        }
+      }
+    }
+    touchStartX.current = null;
+    touchEndX.current = null;
   };
 
   return (
@@ -91,21 +138,33 @@ export function Projects() {
 
         <div className="relative mt-24">
           {/* 프로젝트 콘텐츠 */}
-          <motion.div 
+          <motion.div
             className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-12 items-center"
             initial={{ opacity: 0, y: 40 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
           >
             {/* 프로젝트 이미지 */}
             <motion.div 
-              className="relative w-full mx-auto h-[40vh] md:h-[50vh] group"
+              className="relative w-[90%] md:w-full mx-auto h-[30vh] md:h-[50vh] group"
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.3 }}
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
             >
+              {/* 스와이프 안내 아이콘 (모바일에서만, showSwipeHint가 true일 때) */}
+              {showSwipeHint && (
+                <div className="absolute z-20 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center pointer-events-none select-none">
+                  <span className="mt-2 text-sm text-gray-700 font-medium bg-white/80 rounded-full px-12 py-1 shadow flex items-center justify-center gap-2">
+                    <HandSwipeRight size={28} color="#333" weight="duotone" />
+                    스와이프 해보세요
+                  </span>
+                </div>
+              )}
               <Image
                 src={currentProject.imageUrl}
                 alt={currentProject.title}
@@ -174,7 +233,7 @@ export function Projects() {
               </div>
 
               <motion.div 
-                className="flex gap-6"
+                className="flex gap-1 md:gap-6"
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                 transition={{ duration: 0.6, ease: "easeOut", delay: 1.2 }}
@@ -225,14 +284,13 @@ export function Projects() {
 
           {/* 프로젝트 이동 버튼 */}
           <motion.div 
-            className="hidden md:block"
             initial={{ opacity: 0 }}
             animate={isInView ? { opacity: 1 } : { opacity: 0 }}
             transition={{ duration: 0.6, ease: "easeOut", delay: 1.4 }}
           >
-            <div className="absolute bottom-8 right-0 flex items-center gap-4">
+            <div className="absolute bottom-8 right-10 md:right-0 flex items-center gap-4">
               <motion.span 
-                className="text-2xl"
+                className="text-lg md:text-2xl"
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                 transition={{ duration: 0.6, delay: 1.4 }}
@@ -245,7 +303,7 @@ export function Projects() {
                   {String(filteredProjects.length).padStart(2, '0')}
                 </span>
               </motion.span>
-              <div className="flex gap-6">
+              <div className="flex gap-6 hidden md:block">
                 <motion.button
                   onClick={prevProject}
                   className="p-8 hover:bg-black/10 dark:hover:bg-white/30 rounded-full transition-colors"

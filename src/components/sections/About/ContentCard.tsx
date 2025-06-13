@@ -34,7 +34,7 @@ const hashtags = [
 
 export const ContentCard = ({ onSkillClick }: ContentCardProps) => {
   return (
-    <div className="relative w-full h-[38rem] md:w-auto mt-20 flex flex-col gap-20">
+    <div className="relative w-full h-[38rem] md:w-auto mt-20 flex flex-col gap-10 md:gap-20">
       {/* 소개 */}
       <div className="flex flex-col items-center">
         <p className="text-sm text-gray-600 dark:text-gray-300">

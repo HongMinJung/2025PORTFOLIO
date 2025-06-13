@@ -69,11 +69,11 @@ export const ProfileCard = ({ isInView, isFlipped, setIsFlipped }: ProfileCardPr
             rotateY,
           }}
           transition={{ duration: 0.6, ease: "easeInOut" }}
-          className="relative w-full md:w-auto max-w-full rounded-2xl shadow-xl shadow-gray-200 dark:shadow-gray-700 hover:shadow-primary-300/50 dark:hover:shadow-secondary-300/50 border border-gray-100 dark:border-gray-800 p-20 group cursor-pointer"
+          className="relative w-full md:w-auto max-w-full rounded-2xl md:shadow-xl md:shadow-gray-200 md:dark:shadow-gray-700 hover:shadow-primary-300/50 dark:hover:shadow-secondary-300/50 md:border md:border-gray-100 dark:border-gray-800 p-20 group cursor-pointer"
         >
           {/* 카드 앞면*/}
           <div className="w-full" style={{ backfaceVisibility: "hidden" }}>
-            <div className="relative w-[18rem] h-[22rem] md:w-[20rem] md:h-[24rem] mb-10 rounded-2xl overflow-hidden shadow-xl">
+            <div className="relative w-[18rem] h-[18rem] md:w-[20rem] md:h-[24rem] lg:w-[26rem] lg:h-[32rem] mb-10 rounded-2xl overflow-hidden shadow-xl">
               <Image
                 src="/images/profile.jpg"
                 alt="Profile"
