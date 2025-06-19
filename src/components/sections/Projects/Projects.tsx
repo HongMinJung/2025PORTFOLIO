@@ -108,7 +108,7 @@ export function Projects() {
 
         {/* 프로젝트 카테고리 */}
         <motion.div 
-          className="flex flex-wrap justify-center gap-3 md:gap-4 md:gap-8 mt-14 md:mt-24"
+          className="flex flex-wrap justify-center gap-3 md:gap-4 md:gap-8 mt-14 md:mt-40"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
@@ -149,8 +149,7 @@ export function Projects() {
           >
             {/* 프로젝트 이미지 */}
             <motion.div 
-              className="relative w-[90%] md:w-full mx-auto h-[30vh] md:h-[50vh] group"
-              whileHover={{ scale: 1.02 }}
+              className="relative w-full mx-auto h-[30vh] md:h-[40vh] border border-gray-100 dark:border-gray-900 rounded-3xl group"
               transition={{ duration: 0.3 }}
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -169,25 +168,39 @@ export function Projects() {
                 src={currentProject.imageUrl}
                 alt={currentProject.title}
                 fill
-                className="object-cover transition-transform duration-500 rounded-3xl"
-              />
-              <motion.div 
-                className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl"
-                whileHover={{ opacity: 1 }}
+                className=" transition-transform duration-500 rounded-3xl object-cover"
               />
             </motion.div>
 
             {/* 프로젝트 설명 */}
             <motion.div 
-              className="w-full md:w-full md:h-[40vh] mx-auto flex flex-col justify-between gap-6 md:gpa-0 px-10"
+              className="w-full md:w-full md:h-[40vh] mx-auto flex flex-col justify-between gap-6 md:gpa-0 md:py-20 px-10"
               initial={{ opacity: 0, x: 40 }}
               animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 40 }}
               transition={{ duration: 0.8, ease: "easeOut", delay: 0.6 }}
             >
-              <div className="space-y-14">
+              <div className="space-y-10 md:space-y-14">
                 {/* 기술 뱃지 */}
                 <motion.div 
-                  className="flex flex-wrap gap-3"
+                  className="flex flex-wrap gap-2 md:gap-3"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                  transition={{ duration: 0.6, ease: "easeOut", delay: 0.8 }}
+                >
+                  <motion.span
+                      key={currentProject.year}
+                      className="text-gray-800 dark:text-gray-400 text-xs md:text-sm transition-colors pointer-events-none select-none"
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+                      transition={{ duration: 0.4, delay: 0.4 }}
+                      whileHover={{ scale: 1.1, backgroundColor: "rgba(255, 255, 255, 0.2)" }}
+                    >
+                      {currentProject.year}
+                  </motion.span>
+                </motion.div>
+                {/* 기술 뱃지 */}
+                <motion.div 
+                  className="flex flex-wrap gap-2 md:gap-3"
                   initial={{ opacity: 0, y: 20 }}
                   animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                   transition={{ duration: 0.6, ease: "easeOut", delay: 0.8 }}
@@ -195,7 +208,7 @@ export function Projects() {
                   {currentProject.techStack.map((tech, index) => (
                     <motion.span
                       key={tech}
-                      className="text-gray-800 dark:text-gray-400 px-10 py-1 bg-primary-300/30 dark:bg-secondary-800/60 rounded-full text-sm transition-colors pointer-events-none select-none"
+                      className="text-gray-800 dark:text-gray-400 px-10 py-1 bg-primary-300/30 dark:bg-secondary-800/60 rounded-full text-xs md:text-sm transition-colors pointer-events-none select-none"
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
                       transition={{ duration: 0.4, delay: 0.8 + index * 0.1 }}
@@ -208,13 +221,12 @@ export function Projects() {
                 
                 {/* 프로젝트 타이틀, 설명 */}
                 <motion.div 
-                  className="space-y-4"
                   initial={{ opacity: 0, y: 20 }}
                   animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                   transition={{ duration: 0.6, ease: "easeOut", delay: 1 }}
                 >
                   <motion.h2 
-                    className="text-4xl md:text-5xl font-bold"
+                    className="text-2xl md:text-4xl font-bold md:mb-14"
                     initial={{ opacity: 0, x: -20 }}
                     animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
                     transition={{ duration: 0.6, delay: 1 }}
@@ -222,7 +234,7 @@ export function Projects() {
                     {currentProject.title}
                   </motion.h2>
                   <motion.p 
-                    className="text-gray-400 text-lg"
+                    className="text-gray-400 text-sm md:text-lg whitespace-pre-line"
                     initial={{ opacity: 0, x: -20 }}
                     animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
                     transition={{ duration: 0.6, delay: 1.2 }}
@@ -232,8 +244,9 @@ export function Projects() {
                 </motion.div>
               </div>
 
+              {/* 프로젝트 링크 */}
               <motion.div 
-                className="flex gap-1 md:gap-6"
+                className="flex gap-1 md:gap-4"
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                 transition={{ duration: 0.6, ease: "easeOut", delay: 1.2 }}
@@ -288,7 +301,7 @@ export function Projects() {
             animate={isInView ? { opacity: 1 } : { opacity: 0 }}
             transition={{ duration: 0.6, ease: "easeOut", delay: 1.4 }}
           >
-            <div className="absolute bottom-8 right-10 md:right-0 flex items-center gap-4">
+            <div className="absolute bottom-8 right-24 md:right-0 flex items-center gap-4">
               <motion.span 
                 className="text-lg md:text-2xl"
                 initial={{ opacity: 0, y: 20 }}

@@ -29,7 +29,7 @@ const SkillCard = ({ title, onClick }: SkillCardProps) => (
 );
 
 const hashtags = [
-  "#신입", "#UIUX", "#반응형웹", "#성실함", "호기심대마왕", "커피러버☕️", "지속가능한개발", "성장형인재", "인내심레벨MAX"
+  "#신입", "#UIUX", "#반응형웹", "#성실함", "#호기심대마왕", "#커피러버☕️", "#지속가능한개발", "#성장형인재", "#인내심레벨MAX"
 ];
 
 export const ContentCard = ({ onSkillClick }: ContentCardProps) => {
