@@ -13,8 +13,7 @@ export function Contact() {
     errors,
     isSubmitting,
     submitStatus,
-    handleChange,
-    handleSubmit, 
+    handleChange, 
     setFormData,
   } = useContactForm();
 
