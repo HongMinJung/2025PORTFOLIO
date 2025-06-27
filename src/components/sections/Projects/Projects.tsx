@@ -258,7 +258,7 @@ export function Projects() {
                 initial={{ opacity: 0 }}
                 animate={isInView ? { opacity: 1 } : { opacity: 0 }}
                 transition={{ duration: 0.6, ease: "easeOut", delay: 1.4 }}
-                className="w-full md:absolute md:bottom-[-10] md:left-10 flex flex-row justify-between"
+                className="w-full md:absolute md:bottom-0 md:left-10 flex flex-row justify-between"
               >
                 {/* 프로젝트 링크 */}
                 <motion.div 
