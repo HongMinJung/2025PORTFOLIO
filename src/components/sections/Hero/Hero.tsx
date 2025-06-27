@@ -24,8 +24,8 @@ export function Hero({ className }: { className?: string }) {
       
       {/* 데스크탑 */}
       <div className="hidden md:block">
-        <section ref={ref} className={"relative w-full h-full snap-start overflow-hidden " + (className || "") }>
-          <div className="min-h-[calc(100vh-112px)] flex flex-col justify-between gap-12 container mx-auto px-6 py-24">
+        <section id="hero" ref={ref} className={"relative w-full h-full snap-start overflow-hidden " + (className || "") }>
+          <div className="min-h-[calc(100vh-112px)] flex flex-col justify-between gap-12 md:max-w-7xl 3xl:max-w-10xl mx-auto px-6 py-10">
             {/* top 텍스트 */}
             <motion.div 
               className="flex justify-end pt-4"
@@ -150,7 +150,7 @@ export function Hero({ className }: { className?: string }) {
 
             {/* bottom 텍스트 */}
             <motion.div 
-              className="flex flex-row justify-between items-center pb-4"
+              className="flex flex-row justify-between items-center"
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 1, delay: 1 }}
@@ -168,7 +168,7 @@ export function Hero({ className }: { className?: string }) {
               </div>
 
               {/* bottom 스크롤 안내 메시지 */}
-              <div className="flex flex-col items-center text-sm animate-bounce pointer-events-none select-none mr-60">
+              <div className="flex flex-col items-center text-sm animate-bounce pointer-events-none select-none mr-72">
                 <p>SCROLL DOWN</p>
                 <MoveDown className="w-20 h-20" />
               </div>

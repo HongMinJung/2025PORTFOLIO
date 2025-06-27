@@ -149,6 +149,11 @@ module.exports = {
         "2xl": "1440px",
         "3xl": "1536px",
       },
+      maxWidth: {
+        '8xl': '1440px',
+        '9xl': '1600px',
+        '10xl': '1920px',
+      },
       keyframes: {
         "accordion-down": {
           from: { height: 0 },

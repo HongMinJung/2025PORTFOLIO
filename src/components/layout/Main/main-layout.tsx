@@ -11,10 +11,10 @@ interface MainLayoutProps {
 }
 
 const navItems = [
-  { label: "HOME", href: "/" },
-  { label: "ABOUT", href: "/about" },
-  { label: "PROJECTS", href: "/projects" },
-  { label: "CONTACT", href: "/contact" },
+  { label: "HOME", href: "/", sectionId: "hero" },
+  { label: "ABOUT", href: "/about", sectionId: "about" },
+  { label: "PROJECTS", href: "/projects", sectionId: "projects" },
+  { label: "CONTACT", href: "/contact", sectionId: "contact" },
 ];
 
 export function MainLayout({ children }: MainLayoutProps) {

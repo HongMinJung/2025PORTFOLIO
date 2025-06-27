@@ -10,6 +10,7 @@ import { Menu, X } from "lucide-react";
 interface NavItem {
   label: string;
   href: string;
+  sectionId: string;
 }
 
 interface HeaderProps {
@@ -22,8 +23,8 @@ export function Header({ navItems, logo, className }: HeaderProps) {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [isMounted, setIsMounted] = React.useState(false);
+  const [clickedMenu, setClickedMenu] = React.useState<string>("");
 
-  // 클라이언트 사이드에서만 마운트 상태 업데이트
   React.useEffect(() => {
     setIsMounted(true);
   }, []);
@@ -33,20 +34,44 @@ export function Header({ navItems, logo, className }: HeaderProps) {
     setIsMenuOpen(false);
   }, []);
 
+  // 메뉴 클릭 시 섹션으로 스크롤하는 함수
+  const handleMenuClick = (sectionId?: string) => {
+    setClickedMenu(sectionId ?? "");
+    if (sectionId) {
+      const el = document.getElementById(sectionId);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+    closeMenu();
+  };
+
   // 경로 변경 시 메뉴 닫기
   React.useEffect(() => {
     closeMenu();
   }, [pathname, closeMenu]);
 
+   // 섹션으로 스크롤하는 함수
+   const scrollToSection = React.useCallback((sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+    closeMenu();
+  }, [closeMenu]);
+
   return (
     <>
       <header
         className={cn(
-          "sticky top-0 z-40 w-full py-12 backdrop-blur-md shadow-md dark:shadow-white/10",
+          "sticky top-0 z-40 w-full mx-auto py-12 px-10 backdrop-blur-md shadow-md dark:shadow-white/10",
           className
         )}
       >
-        <div className="mx-auto container flex items-center justify-between">
+        <div className="mx-auto max-w-7xl 3xl:max-w-10xl flex items-center justify-between">
           <div className="flex items-center">
             {logo ? (
               <Link href="/">{logo}</Link>
@@ -60,7 +85,7 @@ export function Header({ navItems, logo, className }: HeaderProps) {
           <div className="flex items-center gap-x-4 pr-4 md:pr-0">
             <ThemeToggle />
 
-            {/* 모바일 메뉴 버튼 */}
+            {/*  메뉴 버튼 */}
             {isMounted && (
               <button
                 className="inline-flex items-center justify-center rounded-md text-foreground hover:bg-accent hover:text-accent-foreground"
@@ -78,19 +103,15 @@ export function Header({ navItems, logo, className }: HeaderProps) {
           <div className="py-4 w-full mx-auto">
             <nav className="flex flex-col justify-center items-center space-y-3">
               {navItems.map((item) => (
-                <Link
+                <button
                   key={item.href}
-                  href={item.href}
+                  onClick={() => handleMenuClick(item.sectionId)}
                   className={cn(
                     "text-md font-medium hover:text-primary-500 dark:hover:text-secondary-500 hover:border-b-2 hover:border-primary-500 dark:hover:border-secondary-500 px-2 py-2",
-                    pathname === item.href
-                      ? "text-primary-500 font-semibold dark:text-secondary-500"
-                      : "text-black dark:text-white"
                   )}
-                  onClick={closeMenu}
                 >
                   {item.label}
-                </Link>
+                </button>
               ))}
             </nav>
           </div>

@@ -5,6 +5,7 @@ import { Toast } from "@/components/ui/Toast/toast";
 import { useState, useEffect, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Send } from "lucide-react";
+import emailjs from '@emailjs/browser';
 
 export function Contact() {
   const {
@@ -13,7 +14,8 @@ export function Contact() {
     isSubmitting,
     submitStatus,
     handleChange,
-    handleSubmit,
+    handleSubmit, 
+    setFormData,
   } = useContactForm();
 
   const [showToast, setShowToast] = useState(false);
@@ -21,21 +23,59 @@ export function Contact() {
   const [toastMessage, setToastMessage] = useState("");
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: false, amount: 0.3 });
+  const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
     if (submitStatus === "success") {
       setToastType("success");
-      setToastMessage("문의가 성공적으로 접수되었습니다.");
+      setToastMessage("메일이 성공적으로 전송되었습니다.");
       setShowToast(true);
     } else if (submitStatus === "error") {
       setToastType("error");
-      setToastMessage("문의 접수에 실패했습니다. 다시 시도해주세요.");
+      setToastMessage("메일 전송에 실패했습니다. 다시 시도해주세요.");
       setShowToast(true);
     }
   }, [submitStatus]);
 
+  const sendEmail = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!formRef.current) return;
+    emailjs
+      .sendForm(
+        'service_5r40hrj', // emailjs 서비스 ID
+        'template_wxwx7ok', // emailjs 템플릿 ID
+        formRef.current,
+        'lWYFjSULxwGBSAmlM' // emailjs public key
+      )
+
+      .then(
+        (result) => {
+          setToastType('success');
+          setToastMessage('메일이 성공적으로 전송되었습니다!');
+          setShowToast(true);
+          formRef.current?.reset();
+          if (typeof setFormData === 'function') {
+            setFormData({
+              name: "",
+              contact: "",
+              company: "",
+              companyEmail: "",
+              subject: "",
+              message: "",
+              email: ""
+            });
+          }
+        },
+        (error) => {
+          setToastType('error');
+          setToastMessage('메일 전송에 실패했습니다.');
+          setShowToast(true);
+        }
+      );
+  };
+
   return (
-    <section ref={sectionRef} className="flex flex-col items-center justify-center min-h-screen md:min-h-[calc(100vh-112px)] snap-start">
+    <section id="contact" ref={sectionRef} className="flex flex-col items-center justify-center min-h-screen md:min-h-[calc(100vh-112px)] snap-start">
       <div className="max-w-7xl px-4 md:px-8 w-full">
         {/* 타이틀 */}
         <motion.div
@@ -54,10 +94,11 @@ export function Contact() {
 
         {/* 문의 폼 */}
         <motion.form
+          ref={formRef}
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
           transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
-          onSubmit={handleSubmit}
+          onSubmit={sendEmail}
           className="w-[80%] md:max-w-2xl mx-auto bg-primary-500/10 dark:bg-secondary-500/10 rounded-2xl p-10 md:p-18 shadow-lg dark:shadow-gray-700/40 mt-24"
         >
           <div className="space-y-4 md:space-y-2">

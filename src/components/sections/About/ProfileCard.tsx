@@ -73,7 +73,7 @@ export const ProfileCard = ({ isInView, isFlipped, setIsFlipped }: ProfileCardPr
         >
           {/* 카드 앞면*/}
           <div className="w-full" style={{ backfaceVisibility: "hidden" }}>
-            <div className="relative w-[18rem] h-[18rem] md:w-[20rem] md:h-[24rem] lg:w-[26rem] lg:h-[32rem] mb-10 rounded-2xl overflow-hidden shadow-xl">
+            <div className="relative w-[18rem] h-[18rem] md:w-[20rem] md:h-[24rem] 3xl:w-[26rem] 3xl:h-[32rem] mb-10 rounded-2xl overflow-hidden shadow-xl">
               <Image
                 src="/images/profile.jpg"
                 alt="Profile"
@@ -85,13 +85,13 @@ export const ProfileCard = ({ isInView, isFlipped, setIsFlipped }: ProfileCardPr
                 <p className="text-md font-semibold text-white">CLICK</p>
               </div>
             </div>
-            <div className="text-center mt-10">
+            <div className="text-center mt-28">
               <span className="text-2xl font-semibold">홍&nbsp;&nbsp;민&nbsp;&nbsp;정</span>
             </div>
             <div className="text-center mb-6">
               <span className="text-lg text-gray-500 dark:text-gray-300 font-medium">Frontend Developer</span>
             </div>
-            <div className="w-full border-t border-primary-100 dark:border-secondary-800 my-4" />
+            <div className="w-full border-t border-primary-100 dark:border-secondary-800 my-16" />
             <div className="w-full flex flex-col gap-3 text-sm text-gray-500 dark:text-gray-400 mb-6 px-2">
               <div className="flex justify-between items-center">
                 <span className="text-gray-400 dark:text-gray-500">이메일</span>

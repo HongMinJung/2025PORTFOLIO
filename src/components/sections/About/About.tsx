@@ -11,7 +11,7 @@ export function About() {
   const titleInView = useInView(titleRef, { once: false, amount: 0.3 });
 
   return (
-    <section className="relative flex flex-col items-center justify-center min-h-screen md:min-h-[calc(100vh-112px)] snap-start overflow-x-hidden">
+    <section id="about" className="relative flex flex-col items-center justify-center min-h-screen md:min-h-[calc(100vh-112px)] snap-start overflow-x-hidden">
       <div className="container mx-auto px-4">
         {/* Title */}
         <div className="relative flex flex-col md:flex-row items-center justify-center gap-8 mb-20">

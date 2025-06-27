@@ -4,12 +4,12 @@ import { validateForm } from '@/lib/Contact/validation';
 
 const initialFormData: FormData = {
   name: "",
-  email: "",
+  contact: "",
   company: "",
   companyEmail: "",
-  contact: "",
   subject: "",
   message: "",
+  email: "",
 };
 
 export const useContactForm = () => {
@@ -81,5 +81,6 @@ export const useContactForm = () => {
     submitStatus,
     handleChange,
     handleSubmit,
+    setFormData,
   };
 }; 

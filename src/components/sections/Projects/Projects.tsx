@@ -12,6 +12,7 @@ const categories = [
   "ALL",           // 전체 프로젝트
   "RESPONSIVE",    // 반응형 웹
   "LANDING",       // 랜딩 페이지
+  "APP",           // 앱 프로젝트
   "CLONE",         // 클론 코딩 프로젝트
   "PERSONAL",      // 개인 프로젝트
   "TEAM",          // 팀 협업 프로젝트
@@ -89,8 +90,8 @@ export function Projects() {
   };
 
   return (
-    <section ref={sectionRef} className="relative flex flex-col items-center justify-center min-h-screen md:min-h-[calc(100vh-112px)] snap-start">
-      <div className="max-w-7xl mx-auto px-4 md:px-8 w-full">
+    <section id="projects" ref={sectionRef} className="relative flex flex-col items-center justify-center min-h-screen md:min-h-[calc(100vh-112px)] snap-start">
+      <div className="max-w-7xl 3xl:max-w-10xl mx-auto px-4 md:px-8 w-full">
         {/* 타이틀 */}
         <motion.div 
           className="flex flex-col justify-center items-center gap-2"
@@ -113,27 +114,36 @@ export function Projects() {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
         >
-          {categories.map((category, index) => (
-            <motion.button
-              key={category}
-              onClick={() => {
-                setSelectedCategory(category);
-                setCurrentProjectIndex(0);
-              }}
-              className={`text-md font-medium transition-colors ${
-                selectedCategory === category  
-                  ? "text-primary-700 dark:text-secondary-500"
-                  : "text-gray-400 dark:text-gray-600 hover:text-primary-500 dark:hover:text-secondary-400"
-              }`}
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-              transition={{ duration: 0.4, delay: 0.2 + index * 0.1 }}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              {category}
-            </motion.button>
-          ))}
+          {categories.map((category, index) => {
+            const projectCount = category === "ALL" 
+              ? projects.length 
+              : projects.filter(project => project.category.includes(category)).length;
+            
+            return (
+              <motion.button
+                key={category}
+                onClick={() => {
+                  setSelectedCategory(category);
+                  setCurrentProjectIndex(0);
+                }}
+                className={`text-md font-medium transition-colors flex items-center gap-1 ${
+                  selectedCategory === category  
+                    ? "text-primary-700 dark:text-secondary-500"
+                    : "text-gray-400 dark:text-gray-600 hover:text-primary-500 dark:hover:text-secondary-400"
+                }`}
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                transition={{ duration: 0.4, delay: 0.2 + index * 0.1 }}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <span>{category}</span>
+                <span className="text-xs">
+                  ({projectCount})
+                </span>
+              </motion.button>
+            );
+          })}
         </motion.div>
 
         <div className="relative mt-24">
@@ -149,7 +159,7 @@ export function Projects() {
           >
             {/* 프로젝트 이미지 */}
             <motion.div 
-              className="relative w-full mx-auto h-[30vh] md:h-[40vh] border border-gray-100 dark:border-gray-900 rounded-3xl group"
+              className="relative w-full mx-auto h-[30vh] md:h-[45vh] border border-gray-100 dark:border-gray-900 rounded-3xl group overflow-hidden"
               transition={{ duration: 0.3 }}
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -168,21 +178,21 @@ export function Projects() {
                 src={currentProject.imageUrl}
                 alt={currentProject.title}
                 fill
-                className=" transition-transform duration-500 rounded-3xl object-cover"
+                className="transition-transform duration-500 rounded-3xl object-cover group-hover:scale-105"
               />
             </motion.div>
 
             {/* 프로젝트 설명 */}
             <motion.div 
-              className="w-full md:w-full md:h-[40vh] mx-auto flex flex-col justify-between gap-6 md:gpa-0 md:py-20 px-10"
+              className="relative w-full md:h-[40vh] mx-auto flex flex-col justify-between gap-6 px-10"
               initial={{ opacity: 0, x: 40 }}
               animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 40 }}
               transition={{ duration: 0.8, ease: "easeOut", delay: 0.6 }}
             >
-              <div className="space-y-10 md:space-y-14">
-                {/* 기술 뱃지 */}
+              <div className="space-y-10">
+                {/* 기술 년도 */}
                 <motion.div 
-                  className="flex flex-wrap gap-2 md:gap-3"
+                  className="flex flex-wrap gap-2"
                   initial={{ opacity: 0, y: 20 }}
                   animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                   transition={{ duration: 0.6, ease: "easeOut", delay: 0.8 }}
@@ -193,14 +203,13 @@ export function Projects() {
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
                       transition={{ duration: 0.4, delay: 0.4 }}
-                      whileHover={{ scale: 1.1, backgroundColor: "rgba(255, 255, 255, 0.2)" }}
                     >
                       {currentProject.year}
                   </motion.span>
                 </motion.div>
                 {/* 기술 뱃지 */}
                 <motion.div 
-                  className="flex flex-wrap gap-2 md:gap-3"
+                  className="flex flex-wrap gap-1"
                   initial={{ opacity: 0, y: 20 }}
                   animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                   transition={{ duration: 0.6, ease: "easeOut", delay: 0.8 }}
@@ -226,7 +235,7 @@ export function Projects() {
                   transition={{ duration: 0.6, ease: "easeOut", delay: 1 }}
                 >
                   <motion.h2 
-                    className="text-2xl md:text-4xl font-bold md:mb-14"
+                    className="text-2xl md:text-4xl font-bold md:mt-14 md:mb-10"
                     initial={{ opacity: 0, x: -20 }}
                     animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
                     transition={{ duration: 0.6, delay: 1 }}
@@ -244,44 +253,31 @@ export function Projects() {
                 </motion.div>
               </div>
 
-              {/* 프로젝트 링크 */}
+              {/* 프로젝트 하단 버튼 */}
               <motion.div 
-                className="flex gap-1 md:gap-4"
-                initial={{ opacity: 0, y: 20 }}
-                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                transition={{ duration: 0.6, ease: "easeOut", delay: 1.2 }}
+                initial={{ opacity: 0 }}
+                animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+                transition={{ duration: 0.6, ease: "easeOut", delay: 1.4 }}
+                className="w-full md:absolute md:bottom-[-10] md:left-10 flex flex-row justify-between"
               >
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                {/* 프로젝트 링크 */}
+                <motion.div 
+                  className="flex gap-1 md:gap-4"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                  transition={{ duration: 0.6, ease: "easeOut", delay: 1.2 }}
                 >
-                  <Link
-                    href={currentProject.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="border border-black dark:border-white hover:border-primary-700 dark:hover:border-secondary-500 rounded-xl py-8 px-20 text-md hover:text-primary-700 dark:hover:text-secondary-500 transition-colors flex items-center gap-2"
-                  >
-                    GIT HUB
-                    <motion.div
-                      whileHover={{ x: 5 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <ArrowRight className="w-16 h-16" strokeWidth={2.5} />
-                    </motion.div>
-                  </Link>
-                </motion.div>
-                {currentProject.liveUrl && (
                   <motion.div
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
                     <Link
-                      href={currentProject.liveUrl}
+                      href={currentProject.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="border border-black dark:border-white hover:border-primary-700 dark:hover:border-secondary-500 rounded-xl py-8 px-20 text-md hover:text-primary-700 dark:hover:text-secondary-500 transition-colors flex items-center gap-2"
                     >
-                      VIEW SITE
+                      GIT HUB
                       <motion.div
                         whileHover={{ x: 5 }}
                         transition={{ duration: 0.2 }}
@@ -290,52 +286,69 @@ export function Projects() {
                       </motion.div>
                     </Link>
                   </motion.div>
-                )}
+                  {currentProject.liveUrl && (
+                    <motion.div
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <Link
+                        href={currentProject.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="border border-black dark:border-white hover:border-primary-700 dark:hover:border-secondary-500 rounded-xl py-8 px-20 text-md hover:text-primary-700 dark:hover:text-secondary-500 transition-colors flex items-center gap-2"
+                      >
+                        VIEW SITE
+                        <motion.div
+                          whileHover={{ x: 5 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          <ArrowRight className="w-16 h-16" strokeWidth={2.5} />
+                        </motion.div>
+                      </Link>
+                    </motion.div>
+                  )}
+                </motion.div>
+
+                {/* 프로젝트 이동 버튼 */}
+                <div className="flex items-center gap-4">
+                  <motion.span 
+                    className="text-lg md:text-2xl"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                    transition={{ duration: 0.6, delay: 1.4 }}
+                  >
+                    <span className="text-primary-700 dark:text-secondary-500">
+                      {String(currentProjectIndex + 1).padStart(2, '0')}
+                    </span>
+                    <span className="text-gray-300 dark:text-gray-600 mx-2">/</span>
+                    <span className="text-gray-300 dark:text-gray-600">
+                      {String(filteredProjects.length).padStart(2, '0')}
+                    </span>
+                  </motion.span>
+                  <div className="flex gap-6 hidden md:block">
+                    <motion.button
+                      onClick={prevProject}
+                      className="p-8 hover:bg-black/10 dark:hover:bg-white/30 rounded-full transition-colors"
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                    >
+                      <ChevronLeft className="w-20 h-20" strokeWidth={2.5} />
+                    </motion.button>
+                    <motion.button
+                      onClick={nextProject}
+                      className="p-8 hover:bg-black/10 dark:hover:bg-white/30 rounded-full transition-colors"
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                    >
+                      <ChevronRight className="w-20 h-20" strokeWidth={2.5} />
+                    </motion.button>
+                  </div>
+                </div>
               </motion.div>
+              
             </motion.div>
           </motion.div>
 
-          {/* 프로젝트 이동 버튼 */}
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut", delay: 1.4 }}
-          >
-            <div className="absolute bottom-8 right-24 md:right-0 flex items-center gap-4">
-              <motion.span 
-                className="text-lg md:text-2xl"
-                initial={{ opacity: 0, y: 20 }}
-                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                transition={{ duration: 0.6, delay: 1.4 }}
-              >
-                <span className="text-primary-700 dark:text-secondary-500">
-                  {String(currentProjectIndex + 1).padStart(2, '0')}
-                </span>
-                <span className="text-gray-300 dark:text-gray-600 mx-2">/</span>
-                <span className="text-gray-300 dark:text-gray-600">
-                  {String(filteredProjects.length).padStart(2, '0')}
-                </span>
-              </motion.span>
-              <div className="flex gap-6 hidden md:block">
-                <motion.button
-                  onClick={prevProject}
-                  className="p-8 hover:bg-black/10 dark:hover:bg-white/30 rounded-full transition-colors"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                >
-                  <ChevronLeft className="w-20 h-20" strokeWidth={2.5} />
-                </motion.button>
-                <motion.button
-                  onClick={nextProject}
-                  className="p-8 hover:bg-black/10 dark:hover:bg-white/30 rounded-full transition-colors"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                >
-                  <ChevronRight className="w-20 h-20" strokeWidth={2.5} />
-                </motion.button>
-              </div>
-            </div>
-          </motion.div>
         </div>
       </div>
     </section>
