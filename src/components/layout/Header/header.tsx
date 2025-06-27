@@ -10,7 +10,7 @@ import { Menu, X } from "lucide-react";
 interface NavItem {
   label: string;
   href: string;
-  sectionId: string;
+  sectionId?: string;
 }
 
 interface HeaderProps {
