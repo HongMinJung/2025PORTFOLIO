@@ -23,7 +23,6 @@ export function Header({ navItems, logo, className }: HeaderProps) {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [isMounted, setIsMounted] = React.useState(false);
-  const [clickedMenu, setClickedMenu] = React.useState<string>("");
 
   React.useEffect(() => {
     setIsMounted(true);
@@ -36,7 +35,6 @@ export function Header({ navItems, logo, className }: HeaderProps) {
 
   // 메뉴 클릭 시 섹션으로 스크롤하는 함수
   const handleMenuClick = (sectionId?: string) => {
-    setClickedMenu(sectionId ?? "");
     if (sectionId) {
       const el = document.getElementById(sectionId);
       if (el) {
@@ -50,18 +48,6 @@ export function Header({ navItems, logo, className }: HeaderProps) {
   React.useEffect(() => {
     closeMenu();
   }, [pathname, closeMenu]);
-
-   // 섹션으로 스크롤하는 함수
-   const scrollToSection = React.useCallback((sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'start'
-      });
-    }
-    closeMenu();
-  }, [closeMenu]);
 
   return (
     <>

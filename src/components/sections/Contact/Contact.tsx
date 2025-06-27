@@ -48,7 +48,7 @@ export function Contact() {
       )
 
       .then(
-        (result) => {
+        () => {
           setToastType('success');
           setToastMessage('메일이 성공적으로 전송되었습니다!');
           setShowToast(true);
@@ -65,7 +65,7 @@ export function Contact() {
             });
           }
         },
-        (error) => {
+        () => {
           setToastType('error');
           setToastMessage('메일 전송에 실패했습니다.');
           setShowToast(true);
