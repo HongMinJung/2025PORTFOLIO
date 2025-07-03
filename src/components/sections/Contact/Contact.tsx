@@ -133,6 +133,7 @@ export function Contact() {
                   id="name"
                   name="name"
                   type="text"
+                  autoComplete="name"
                   value={formData.name}
                   onChange={handleChange}
                   placeholder="성함을 입력해주세요."
@@ -154,7 +155,8 @@ export function Contact() {
                   id="contact"
                   name="contact"
                   maxLength={11}
-                  type="text"
+                  type="tel"
+                  autoComplete="tel"
                   value={formData.contact}
                   onChange={handleChange}
                   placeholder="연락처를 입력해주세요."
@@ -179,6 +181,7 @@ export function Contact() {
                   id="company"
                   name="company"
                   type="text"
+                  autoComplete="organization"
                   value={formData.company}
                   onChange={handleChange}
                   placeholder="회사명을 입력해주세요."
@@ -200,6 +203,7 @@ export function Contact() {
                   id="companyEmail"
                   name="companyEmail"
                   type="email"
+                  autoComplete="email"
                   value={formData.companyEmail}
                   onChange={handleChange}
                   placeholder="이메일을 입력해주세요."
@@ -223,6 +227,7 @@ export function Contact() {
                 id="subject"
                 name="subject"
                 type="text"
+                autoComplete="off"
                 value={formData.subject}
                 onChange={handleChange}
                 placeholder="제목을 입력해주세요."
@@ -245,6 +250,7 @@ export function Contact() {
                 id="message"
                 name="message"
                 rows={4}
+                autoComplete="off"
                 value={formData.message}
                 onChange={handleChange}
                 placeholder="문의 내용을 입력해주세요. (최소 10자 이상)"

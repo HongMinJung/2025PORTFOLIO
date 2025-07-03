@@ -52,28 +52,43 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
     placeholder: string,
     required: boolean = true,
     maxLength?: number
-  ) => (
-    <div>
-      <label htmlFor={id} className={contactStyles.label}>
-        {label}{required && <span className="red-text">*</span>}
-      </label>
-      <input
-        id={id}
-        name={id}
-        type={type}
-        value={formData[id as keyof typeof formData]}
-        onChange={handleChange}
-        placeholder={placeholder}
-        maxLength={maxLength}
-        className={`${contactStyles.input.base} ${errors[id as keyof typeof errors] ? contactStyles.input.error : contactStyles.input.normal}`}
-      />
-      {errors[id as keyof typeof errors] && (
-        <p className="pl-8 mt-1 text-xs text-red-500 hidden md:block">
-          {errors[id as keyof typeof errors]}
-        </p>
-      )}
-    </div>
-  );
+  ) => {
+    const getAutoComplete = () => {
+      switch (id) {
+        case "name": return "name";
+        case "contact": return "tel";
+        case "company": return "organization";
+        case "companyEmail": return "email";
+        case "subject": return "off";
+        case "message": return "off";
+        default: return "off";
+      }
+    };
+
+    return (
+      <div>
+        <label htmlFor={id} className={contactStyles.label}>
+          {label}{required && <span className="red-text">*</span>}
+        </label>
+        <input
+          id={id}
+          name={id}
+          type={id === "contact" ? "tel" : type}
+          autoComplete={getAutoComplete()}
+          value={formData[id as keyof typeof formData]}
+          onChange={handleChange}
+          placeholder={placeholder}
+          maxLength={maxLength}
+          className={`${contactStyles.input.base} ${errors[id as keyof typeof errors] ? contactStyles.input.error : contactStyles.input.normal}`}
+        />
+        {errors[id as keyof typeof errors] && (
+          <p className="pl-8 mt-1 text-xs text-red-500 hidden md:block">
+            {errors[id as keyof typeof errors]}
+          </p>
+        )}
+      </div>
+    );
+  };
 
   const sendEmail = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -170,6 +185,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
               id="message"
               name="message"
               rows={4}
+              autoComplete="off"
               value={formData.message}
               onChange={handleChange}
               placeholder="문의 내용을 입력해주세요."
