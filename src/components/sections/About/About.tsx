@@ -3,7 +3,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
 import Image from "next/image";
-import { skillDescriptions, SkillType } from "@/data/skills";
+import { skillDescriptions, SkillType, SkillDescription } from "@/data/skills";
 import { SkillModal } from "@/components/modals/SkillModal";
 import React from "react";
 import { FaDownload } from "react-icons/fa";
@@ -52,6 +52,11 @@ export function About() {
     show: { opacity: 1, scale: 1, transition: { duration: 0.6, ease: "easeOut" } }
   };
 
+  const skillCardVariant = {
+    hidden: { opacity: 0, y: 20 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+  };
+
   // 스킬 데이터를 배열로 변환
   const skills = Object.entries(skillDescriptions).map(([key, skill]) => ({
     ...skill,
@@ -59,8 +64,8 @@ export function About() {
   }));
 
   // 스킬 카드 클릭 핸들러
-  const handleSkillClick = (skill: any) => {
-    const description = `${skill.description}\n\n주요 기술:\n${skill.technologies.map((tech: any) => `• ${tech.name}`).join('\n')}`;
+  const handleSkillClick = (skill: SkillDescription & { key: SkillType }) => {
+    const description = `${skill.description}\n\n주요 기술:\n${skill.technologies.map((tech) => `• ${tech.name}`).join('\n')}`;
     setSelectedSkill({
       title: skill.title,
       description: description
@@ -70,11 +75,6 @@ export function About() {
   // 모달 닫기 핸들러
   const handleCloseModal = () => {
     setSelectedSkill(null);
-  };
-
-  const skillCardVariant = {
-    hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
   };
   
   return (

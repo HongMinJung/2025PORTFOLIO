@@ -11,8 +11,6 @@ import {
   SiCss3,
   SiJavascript,
   SiJquery,
-  SiFlutter,
-  SiDart,
   SiSupabase,
   SiAdobephotoshop,
   SiFramer,
