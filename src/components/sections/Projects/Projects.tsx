@@ -91,7 +91,7 @@ export function Projects() {
 
   return (
     <section id="projects" ref={sectionRef} className="relative flex flex-col items-center justify-center min-h-screen md:min-h-[calc(100vh-112px)] snap-start">
-      <div className="max-w-7xl 3xl:max-w-10xl mx-auto px-4 md:px-8 w-full">
+      <div className="max-w-8xl 3xl:max-w-10xl mx-auto px-4 md:px-8 w-full">
         {/* 타이틀 */}
         <motion.div 
           className="flex flex-col justify-center items-center gap-2"
@@ -99,7 +99,7 @@ export function Projects() {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
-          <p className="text-lg md:text-xl font-semibold text-gray-500">
+          <p className="text-md md:text-xl font-semibold text-gray-500">
             시행착오 끝에 완성한 소중한 기록들
           </p>
           <h1 className="text-4xl md:text-7xl font-bold md:mb-8">

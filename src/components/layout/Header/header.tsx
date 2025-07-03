@@ -57,7 +57,7 @@ export function Header({ navItems, logo, className }: HeaderProps) {
           className
         )}
       >
-        <div className="mx-auto max-w-7xl 3xl:max-w-10xl flex items-center justify-between">
+        <div className="mx-auto max-w-9xl 3xl:max-w-10xl flex items-center justify-between">
           <div className="flex items-center">
             {logo ? (
               <Link href="/">{logo}</Link>

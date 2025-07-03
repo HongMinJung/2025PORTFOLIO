@@ -6,6 +6,7 @@ import { useState, useEffect, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Send } from "lucide-react";
 import emailjs from '@emailjs/browser';
+import { validateForm } from '@/lib/Contact/validation';
 
 export function Contact() {
   const {
@@ -15,6 +16,7 @@ export function Contact() {
     submitStatus,
     handleChange, 
     setFormData,
+    setErrors,
   } = useContactForm();
 
   const [showToast, setShowToast] = useState(false);
@@ -38,7 +40,21 @@ export function Contact() {
 
   const sendEmail = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    
+    // 폼 검증 수행
+    const validationErrors = validateForm(formData);
+    const hasErrors = validationErrors && Object.keys(validationErrors).length > 0;
+    
+    if (hasErrors) {
+      setErrors(validationErrors);
+      setToastType('error');
+      setToastMessage('필수 항목을 모두 입력해주세요.');
+      setShowToast(true);
+      return;
+    }
+
     if (!formRef.current) return;
+    
     emailjs
       .sendForm(
         'service_5r40hrj', // emailjs 서비스 ID
@@ -50,7 +66,7 @@ export function Contact() {
       .then(
         () => {
           setToastType('success');
-          setToastMessage('메일이 성공적으로 전송되었습니다!');
+          setToastMessage('메일이 성공적으로 전송되었습니다.');
           setShowToast(true);
           formRef.current?.reset();
           if (typeof setFormData === 'function') {
@@ -64,6 +80,8 @@ export function Contact() {
               email: ""
             });
           }
+          // 에러 상태 초기화
+          setErrors({});
         },
         () => {
           setToastType('error');
@@ -75,19 +93,20 @@ export function Contact() {
 
   return (
     <section id="contact" ref={sectionRef} className="flex flex-col items-center justify-center min-h-screen md:min-h-[calc(100vh-112px)] snap-start">
-      <div className="max-w-7xl px-4 md:px-8 w-full">
+      <div className="flex flex-col xl:flex-row items-center justify-center max-w-8xl 3xl:max-w-10xl px-4 md:px-8 w-full">
         {/* 타이틀 */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="text-center mb-8 md:mb-16 flex flex-col items-center"
+          className="w-full text-center mb-8 md:mb-16 flex flex-col items-center justify-center"
         >
-          <h2 className="text-3xl md:text-7xl font-bold md:mb-8">
+          <h2 className="text-4xl md:text-7xl font-bold md:mb-8">
             CONTACT
           </h2>
-          <p className="w-[60%] text-base md:text-xl font-semibold text-gray-500 px-4">
-            프로젝트나 협업 관련하여 이야기하고 싶으시면 언제든지 연락주세요.
+          <p className="text-md md:text-xl font-semibold text-gray-500 px-4">
+            프로젝트 또는 협업 관련하여 이야기 나누고 싶으시면<br />
+            메일로 보내주시면 빠르게 답변드리겠습니다.
           </p>
         </motion.div>
 
@@ -98,7 +117,7 @@ export function Contact() {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
           transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
           onSubmit={sendEmail}
-          className="w-[80%] md:max-w-2xl mx-auto bg-primary-500/10 dark:bg-secondary-500/10 rounded-2xl p-10 md:p-18 shadow-lg dark:shadow-gray-700/40 mt-24"
+          className="w-[90%] md:w-full mx-auto bg-primary-500/10 dark:bg-secondary-500/10 rounded-2xl p-10 md:p-18 shadow-lg dark:shadow-gray-700/40 mt-24"
         >
           <div className="space-y-4 md:space-y-2">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-2">
@@ -139,7 +158,7 @@ export function Contact() {
                   value={formData.contact}
                   onChange={handleChange}
                   placeholder="연락처를 입력해주세요."
-                  className={`text-sm w-full rounded-xl border ${errors.name ? "border-red-500" : "border-gray-200"} bg-white dark:bg-zinc-900 px-4 py-2.5 md:py-3 focus:outline-none focus:border-primary-500 dark:focus:border-secondary-500 pl-8 placeholder:text-gray-500 dark:placeholder:text-gray-500 transition-all`}
+                  className={`text-sm w-full rounded-xl border ${errors.contact ? "border-red-500" : "border-gray-200"} bg-white dark:bg-zinc-900 px-4 py-2.5 md:py-3 focus:outline-none focus:border-primary-500 dark:focus:border-secondary-500 pl-8 placeholder:text-gray-500 dark:placeholder:text-gray-500 transition-all`}
                 />
                 {errors.contact && (
                   <p className="mt-1 ml-2 text-xs text-red-500">{errors.contact}</p>
@@ -163,7 +182,7 @@ export function Contact() {
                   value={formData.company}
                   onChange={handleChange}
                   placeholder="회사명을 입력해주세요."
-                  className={`text-sm w-full rounded-xl border ${errors.name ? "border-red-500" : "border-gray-200"} bg-white dark:bg-zinc-900 px-4 py-2.5 md:py-3 focus:outline-none focus:border-primary-500 dark:focus:border-secondary-500 pl-8 placeholder:text-gray-500 dark:placeholder:text-gray-500 transition-all`}
+                  className={`text-sm w-full rounded-xl border ${errors.company ? "border-red-500" : "border-gray-200"} bg-white dark:bg-zinc-900 px-4 py-2.5 md:py-3 focus:outline-none focus:border-primary-500 dark:focus:border-secondary-500 pl-8 placeholder:text-gray-500 dark:placeholder:text-gray-500 transition-all`}
                 />
                 {errors.company && (
                   <p className="mt-1 ml-2 text-xs text-red-500">{errors.company}</p>
@@ -184,7 +203,7 @@ export function Contact() {
                   value={formData.companyEmail}
                   onChange={handleChange}
                   placeholder="이메일을 입력해주세요."
-                  className={`text-sm w-full rounded-xl border ${errors.name ? "border-red-500" : "border-gray-200"} bg-white dark:bg-zinc-900 px-4 py-2.5 md:py-3 focus:outline-none focus:border-primary-500 dark:focus:border-secondary-500 pl-8 placeholder:text-gray-500 dark:placeholder:text-gray-500 transition-all`}
+                  className={`text-sm w-full rounded-xl border ${errors.companyEmail ? "border-red-500" : "border-gray-200"} bg-white dark:bg-zinc-900 px-4 py-2.5 md:py-3 focus:outline-none focus:border-primary-500 dark:focus:border-secondary-500 pl-8 placeholder:text-gray-500 dark:placeholder:text-gray-500 transition-all`}
                 />
                 {errors.companyEmail && (
                   <p className="mt-1 ml-2 text-xs text-red-500">{errors.companyEmail}</p>
@@ -207,7 +226,7 @@ export function Contact() {
                 value={formData.subject}
                 onChange={handleChange}
                 placeholder="제목을 입력해주세요."
-                className={`text-sm w-full rounded-xl border ${errors.name ? "border-red-500" : "border-gray-200"} bg-white dark:bg-zinc-900 px-4 py-2.5 md:py-3 focus:outline-none focus:border-primary-500 dark:focus:border-secondary-500 pl-8 placeholder:text-gray-500 dark:placeholder:text-gray-500 transition-all`}
+                className={`text-sm w-full rounded-xl border ${errors.subject ? "border-red-500" : "border-gray-200"} bg-white dark:bg-zinc-900 px-4 py-2.5 md:py-3 focus:outline-none focus:border-primary-500 dark:focus:border-secondary-500 pl-8 placeholder:text-gray-500 dark:placeholder:text-gray-500 transition-all`}
               />
               {errors.subject && (
                 <p className="mt-1 ml-2 text-xs text-red-500">{errors.subject}</p>
@@ -228,7 +247,7 @@ export function Contact() {
                 rows={4}
                 value={formData.message}
                 onChange={handleChange}
-                placeholder="문의 내용을 입력해주세요."
+                placeholder="문의 내용을 입력해주세요. (최소 10자 이상)"
                 className={`text-sm w-full rounded-xl border ${errors.message ? "border-red-500" : "border-gray-200"} bg-white dark:bg-zinc-900 px-4 py-2.5 md:py-3 focus:outline-none focus:border-primary-500 dark:focus:border-secondary-500 pl-8 placeholder:text-gray-500 dark:placeholder:text-gray-500 resize-none transition-all`}
               />
               {errors.message && (

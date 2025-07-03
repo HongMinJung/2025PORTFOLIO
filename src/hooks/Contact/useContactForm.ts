@@ -82,5 +82,6 @@ export const useContactForm = () => {
     handleChange,
     handleSubmit,
     setFormData,
+    setErrors,
   };
 }; 

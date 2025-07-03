@@ -25,7 +25,7 @@ export function Hero({ className }: { className?: string }) {
       {/* 데스크탑 */}
       <div className="hidden md:block">
         <section id="hero" ref={ref} className={"relative w-full h-full snap-start overflow-hidden " + (className || "") }>
-          <div className="min-h-[calc(100vh-112px)] flex flex-col justify-between gap-12 md:max-w-7xl 3xl:max-w-10xl mx-auto px-6 py-10">
+          <div className="min-h-[calc(100vh-112px)] flex flex-col justify-between gap-12 md:max-w-9xl 3xl:max-w-10xl mx-auto px-6 py-10">
             {/* top 텍스트 */}
             <motion.div 
               className="flex justify-end pt-4"

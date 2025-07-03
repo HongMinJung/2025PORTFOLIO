@@ -84,15 +84,4 @@ export const projects: Project[] = [
     category: ["ALL", "RESPONSIVE", "LANDING", "PERSONAL"],
     year: "2024 | 2025"
   },
-  {
-    id: "project04",
-    title: "지켜줄개 - 유기견 보호소 홍보 페이지",
-    description: "반응형 웹 디자인으로 구현된 유기견 보호소 홍보 페이지입니다. bxSlider를 활용한 배너 슬라이더, 강아지 정보 모달, 후원 신청 폼, 뉴스레터 링크 등 다양한 기능을 포함하고 있습니다. 모바일 퍼스트 접근법으로 모든 디바이스에서 최적화된 사용자 경험을 제공합니다.",
-    techStack: ["HTML5", "CSS3", "JavaScript", "jQuery", "bxSlider"],
-    imageUrl: "/images/지켜줄개_썸네일.jpg",
-    githubUrl: "https://github.com/HongMinJung/SUPPORT-Page",
-    liveUrl: "https://supportdog.netlify.app/",
-    category: ["ALL", "RESPONSIVE", "LANDING", "PERSONAL"],
-    year: "2024 | 2025"
-  }
 ]; 

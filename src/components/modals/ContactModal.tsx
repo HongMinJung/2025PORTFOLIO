@@ -2,10 +2,12 @@
 
 import { useContactForm } from "@/hooks/Contact/useContactForm";
 import { Toast } from "@/components/ui/Toast/toast";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { X } from "lucide-react";
 import { contactStyles } from "@/styles/contact";
 import { motion } from "framer-motion";
+import emailjs from '@emailjs/browser';
+import { validateForm } from '@/lib/Contact/validation';
 
 interface ContactModalProps {
   isOpen: boolean;
@@ -19,12 +21,15 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
     isSubmitting,
     submitStatus,
     handleChange,
-    handleSubmit,
+    setFormData,
+    setErrors,
   } = useContactForm();
 
   const [showToast, setShowToast] = useState(false);
   const [toastType, setToastType] = useState<"success" | "error">("success");
   const [toastMessage, setToastMessage] = useState("");
+
+  const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
     if (submitStatus === "success") {
@@ -63,12 +68,60 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
         className={`${contactStyles.input.base} ${errors[id as keyof typeof errors] ? contactStyles.input.error : contactStyles.input.normal}`}
       />
       {errors[id as keyof typeof errors] && (
-        <p className="pl-8 mt-1 text-xs text-red-500">
+        <p className="pl-8 mt-1 text-xs text-red-500 hidden md:block">
           {errors[id as keyof typeof errors]}
         </p>
       )}
     </div>
   );
+
+  const sendEmail = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    // 폼 검증
+    const validationErrors = validateForm(formData);
+    const hasErrors = validationErrors && Object.keys(validationErrors).length > 0;
+    if (hasErrors) {
+      setErrors(validationErrors);
+      setToastType('error');
+      setToastMessage('필수 항목을 모두 입력해주세요.');
+      setShowToast(true);
+      return;
+    }
+
+    if (!formRef.current) return;
+
+    emailjs
+      .sendForm(
+        'service_5r40hrj',
+        'template_wxwx7ok',
+        formRef.current,
+        'lWYFjSULxwGBSAmlM'
+      )
+      .then(
+        () => {
+          setToastType('success');
+          setToastMessage('메일이 성공적으로 전송되었습니다.');
+          setShowToast(true);
+          formRef.current?.reset();
+          setFormData({
+            name: "",
+            contact: "",
+            company: "",
+            companyEmail: "",
+            subject: "",
+            message: "",
+            email: ""
+          });
+          setErrors({});
+        },
+        () => {
+          setToastType('error');
+          setToastMessage('메일 전송에 실패했습니다.');
+          setShowToast(true);
+        }
+      );
+  };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
@@ -96,7 +149,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-5">
+        <form ref={formRef} onSubmit={sendEmail} className="space-y-1 md:space-y-5">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
             {renderInput("name", "이름", "text", "성함을 입력해주세요.")}
             {renderInput("contact", "연락처", "text", "연락처를 입력해주세요.", true, 11)}
@@ -123,14 +176,14 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
               className={`${contactStyles.input.base} ${errors.message ? contactStyles.input.error : contactStyles.input.normal} resize-none`}
             />
             {errors.message && (
-              <p className="pl-8 mt-1 text-xs text-red-500">{errors.message}</p>
+              <p className="pl-8 mt-1 text-xs text-red-500 hidden md:block">{errors.message}</p>
             )}
           </div>
 
           <button
             type="submit"
             disabled={isSubmitting}
-            className={`${contactStyles.button.base} ${contactStyles.button.hover} ${contactStyles.button.focus}`}
+            className="w-full mt-6 md:mt-8 py-4 md:py-8 rounded-lg bg-primary-400 dark:bg-secondary-500 text-white font-medium text-sm transition-all hover:bg-primary-700 dark:hover:bg-secondary-700 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
           >
             {isSubmitting ? "전송 중" : "문의하기"}
           </button>
