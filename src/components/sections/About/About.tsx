@@ -209,7 +209,7 @@ export function About() {
                     className="flex flex-row items-center justify-center gap-2"
                     variants={buttonVariant}
                   >
-                    <a href="/resume.pdf" download className="w-full">
+                    <a href="/resume.pdf" download="hminjung_resume.pdf" className="w-full">
                       <motion.button 
                         className="w-full py-2 bg-primary-400 hover:bg-primary-700 dark:bg-secondary-600 dark:hover:bg-secondary-800 text-white rounded-md flex flex-row items-center justify-center gap-2 hover:bg-primary-600 dark:hover:bg-secondary-600 transition-all duration-300"
                         whileHover={{ scale: 1.05, y: -2 }}
